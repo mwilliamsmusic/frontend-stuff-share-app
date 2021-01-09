@@ -29,19 +29,22 @@ function SignIn() {
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
     requestHandler();
+  };
+  const relocate = () => {
     window.location.href = frontend;
   };
-
   const requestHandler = () => {
     axios(signIn(username, password)).then(
-      (res: AxiosResponse) => {
+      (res) => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", res.data.username);
         localStorage.setItem("id", res.data.id);
         localStorage.setItem("log", "true");
+        relocate();
       },
       (err: AxiosError) => {
         setError(err);
+
         setPassword("");
       }
     );

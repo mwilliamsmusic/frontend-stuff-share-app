@@ -1,4 +1,5 @@
 import React from "react";
+import {useParams} from "react-router-dom";
 import {CenterContent, PageContainer} from "../../CSS/globalCSS";
 function TypeItem() {
   return (

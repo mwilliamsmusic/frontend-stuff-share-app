@@ -1,33 +1,35 @@
 import React, {useState, useEffect} from "react";
-import Type from "../../Type/Type";
-import TypeCreate from "../../Type/TypeCreate";
-import axios from "axios";
-import {CenterContent, PageContainer} from "../../../CSS/globalCSS";
-//import {collectUser} from "../../../Utils/urlCollect";
-//import {collectAllUser} from "./axiosCollectConfig";
+import TypeCreate from "../../../../Type/TypeCreate";
+import axios, {AxiosError, AxiosResponse} from "axios";
+import {CenterContent, PageContainer} from "../../../../../CSS/globalCSS";
+import AllUserCollect from "./AllUserCollect";
+import {userCollectAll} from "../axiosUserCollectConfig";
 import {useParams} from "react-router-dom";
-/*
+import {useRecoilState} from "recoil";
+import {collectMainState} from "../../../../../Store/atoms";
+
 interface RouteParams {
-  id: string;
+  id: any;
 }
 
-function Collect() {
+function UserCollect() {
   const [isLoad, setIsLoad] = useState<boolean>(false);
   const [error, setError] = useState<any>();
-  const [list, setList] = useState<any>();
+  const [collectTitles, setCollectTitles] = useState<object | undefined>();
   const [createTitle, setCreateTitle] = useState<any>();
   const [createDisable, setCreateDisable] = useState<boolean>(true);
-
+  const [collectMain, setcollectMain] = useRecoilState(collectMainState);
   let {id} = useParams<RouteParams>();
 
   const allCollectUser = () => {
     setIsLoad(true);
-    axios(collectAllUser(id)).then(
-      (res) => {
-        setList(res.data);
+    axios(userCollectAll()).then(
+      (res: AxiosResponse) => {
+        setcollectMain(res.data);
       },
-      (err) => {
+      (err: AxiosError) => {
         setError(err.message);
+        console.log(err);
       }
     );
     setIsLoad(false);
@@ -35,10 +37,10 @@ function Collect() {
 
   const createTitleHandler = (title: string) => {
     setCreateTitle(title);
-    btnCreateHandler(title);
+    createBtnHandler(title);
   };
 
-  const btnCreateHandler = (name: string) => {
+  const createBtnHandler = (name: string) => {
     if (name === "") {
       setCreateDisable(true);
     } else {
@@ -48,14 +50,13 @@ function Collect() {
 
   const onSubmitHandler = (event: React.FormEvent) => {
     event.preventDefault();
-    //  collectCreate();
-    allCollectUser();
     setCreateTitle("");
   };
 
   useEffect(() => {
     allCollectUser();
   }, []);
+
   return (
     <CenterContent>
       <PageContainer>
@@ -65,10 +66,10 @@ function Collect() {
           onSubmitHandler={onSubmitHandler}
           createDisable={createDisable}
         />
+        <AllUserCollect />
       </PageContainer>
     </CenterContent>
   );
 }
 
-export default Collect;
-*/
+export default UserCollect;

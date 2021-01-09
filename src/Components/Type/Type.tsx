@@ -1,29 +1,36 @@
 import React from "react";
 import {CenterContent, PageContainer, CenterHeading} from "../../CSS/globalCSS";
 import {CollectContainer, ListStyle} from "./typeCSS";
-
-interface Props {
-  list: any;
-  type: string;
+import {connect, ConnectedProps} from "react-redux";
+interface RootState {
+  collectList: object;
 }
 
-function Type(prop: Props) {
+const mapState = (state: RootState) => ({
+  collectList: state.collectList,
+});
+
+const connector = connect(mapState);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux;
+
+function Type(props: Props) {
   // Display Collections or Faves
   const listItem =
-    prop.list &&
-    Object.values(prop.list).map((collect: any) => (
+    props.collectList &&
+    Object.values(props.collectList).map((collect: any) => (
       <li key={collect.id}>
         <CollectContainer>{collect.title}</CollectContainer>
       </li>
     ));
   return (
     <div>
-      <CenterHeading>
-        <h2>{prop.type}</h2>
-      </CenterHeading>
+      <CenterHeading>Collects</CenterHeading>
       <ListStyle>{listItem}</ListStyle>
     </div>
   );
 }
 
-export default Type;
+export default connector(Type);

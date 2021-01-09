@@ -1,11 +1,8 @@
 // Backend URL
-export const backend = "http://localhost:4435/";
+export const backend = "http://localhost:44308/";
 
 // User collection create
 export const collectMain = "http://localhost:8080/user/collection/";
-
-//User GET collection
-export const collectGetAll = "http://localhost:8080/user/collection/all/";
 
 // Get Collection one details
 export const oneCollectInfo = `${backend}/user/collect/id/`;
@@ -39,16 +36,21 @@ export const addCOllectObj = `${backend}/user/collect/field/id/`;
 export const signUpURL = `${backend}user/register`;
 // Sign in
 
-export const signInURL = `https://localhost:44352/user/authenticate`;
+export const signInURL = `https://localhost:44308/user/authenticate`;
 
 // frontend
 
-export const frontend = "http://localhost:3000";
+export const frontend = "http://localhost:3000/";
 
 export const reactUserCollectOne = "/me/collection/item/";
 
 export const collectItem = "/me/collection/item/";
 
 //Collect User Page
+//User ALL GET collection
+export const allUserCollect = "https://localhost:44308/end/usercollect/all/";
 
-export const collectUser = "https://localhost:44352/end/collect/all/";
+export const itemUserCollect = "https://localhost:44308/end/itemusercollect/";
+
+export const allItemUserCollect =
+  "https://localhost:44308/end/itemusercollect/all/";

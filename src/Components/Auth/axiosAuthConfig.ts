@@ -18,14 +18,25 @@ export const signUp = (username: string, password: string, email: string) => {
 };
 
 export const signIn = (username: string, password: string) => {
-  return {
+  const options = {
     method: POST,
     url: `${signInURL}`,
     data: {
-      username: `${username}`,
-      password: `${password}`,
+      Username: `${username}`,
+      Password: `${password}`,
     },
 
     timeout: 60000,
   };
+  return options;
 };
+/*
+export const options = {
+  method: POST,
+  url: `${signInURL}`,
+  data: {
+    Username: `${username}`,
+    Password: `${password}`,
+  },,
+  timeout: 6000,
+};*/

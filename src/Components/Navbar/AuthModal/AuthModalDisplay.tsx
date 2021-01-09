@@ -15,7 +15,7 @@ const AuthModalDisplay: FC<Props> = ({logout}) => {
   return (
     <AuthModalContainer>
       <LinkBox>
-        <AuthLinkStyle to="/user/collect/:id">My Collections</AuthLinkStyle>
+        <AuthLinkStyle to="/all/user/collect">My Collections</AuthLinkStyle>
         <ModalTextSpacer />
         <AuthLinkStyle to="/user/fave/:id">My Favorites</AuthLinkStyle>
         <ModalTextSpacer />
