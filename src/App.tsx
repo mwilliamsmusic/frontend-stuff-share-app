@@ -17,7 +17,7 @@ function App() {
   return (
     <div>
       <Navbar />
-      <Spacer />
+      <Spacer height="100px" />
       <Switch>
         <Route path="/signin" component={SignIn} />
         <Route path="/singup" component={SignUp} />

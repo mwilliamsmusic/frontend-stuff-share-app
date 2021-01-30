@@ -1,5 +1,6 @@
-import React, {FC} from "react";
-
+import React from "react";
+import {StdBtn} from "../../../CSS/globalCSS";
+import {BLUE, PINK} from "../../../CSS/IGlobalCSS";
 import {
   AuthModalContainer,
   AuthLinkStyle,
@@ -11,7 +12,7 @@ interface Props {
   logout: () => void;
 }
 
-const AuthModalDisplay: FC<Props> = ({logout}) => {
+function AuthModalDisplay(props: Props) {
   return (
     <AuthModalContainer>
       <LinkBox>
@@ -22,10 +23,12 @@ const AuthModalDisplay: FC<Props> = ({logout}) => {
         <AuthLinkStyle to="/user/me">Me</AuthLinkStyle>
         <ModalTextSpacer />
 
-        <button onClick={logout}>Sign Out</button>
+        <StdBtn bgColor={BLUE} brdColor={PINK} onClick={props.logout}>
+          Sign Out
+        </StdBtn>
       </LinkBox>
     </AuthModalContainer>
   );
-};
+}
 
 export default AuthModalDisplay;

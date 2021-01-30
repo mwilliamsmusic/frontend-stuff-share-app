@@ -1,4 +1,7 @@
-import styled from "styled-components";
+import {stringify} from "querystring";
+import React from "react";
+import styled, {StyledFunction} from "styled-components";
+import {ISpacer, IStdBtn} from "./IGlobalCSS";
 
 //Centers entire page content
 export const CenterContent = styled.div`
@@ -21,12 +24,12 @@ export const PageContainer = styled.div`
   background-color: whitesmoke;
   width: 80%;
   color: black;
-  box-shadow: 4px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
   border: 2px solid #2c4ef5;
 `;
 
-export const Spacer = styled.div`
-  height: 100px;
+export const Spacer = styled.div<ISpacer>`
+  height: ${(p) => p.height};
 `;
 
 export const Btn = styled.button`
@@ -39,11 +42,43 @@ export const CenterHeading = styled.div`
   text-align: center;
 `;
 
+export const UnorderListStyle = styled.ul`
+  list-style: none;
+`;
+
+export const ListBtn = styled.button`
+  color: #2c4ef5;
+`;
+
+export const StdBtn = styled.button<IStdBtn>`
+  border-radius: 4px;
+  background-color: ${(p) => p.bgColor};
+  border: 2px solid ${(p) => p.brdColor};
+  color: white;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.05) 90%
+  );
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+`;
+
+export const StdForm = styled.form`
+  input {
+    border: 2px solid rgb(244, 43, 75);
+    border-radius: 4px;
+    outline: none;
+  }
+`;
+
+export const StdListBtn = styled.button``;
+
 /*
 
-Main 
-rgb(244,43,75)
 
-Complement
-rgb(44,245,211)
+
+Complement 
 */

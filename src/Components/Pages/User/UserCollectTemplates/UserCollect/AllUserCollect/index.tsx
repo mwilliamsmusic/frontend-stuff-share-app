@@ -1,16 +1,15 @@
 import React from "react";
-
 import {CollectContainer, ListStyle, LinkStyle} from "../../../userCSS";
-import {collectMainState} from "../../../../../../Store/atoms";
-
+import {userCollectAllState} from "../../../../../../Store/userCollect/userAtoms";
 import {useRecoilState} from "recoil";
+import {CenterContent, PageContainer} from "../../../../../../CSS/globalCSS";
 
 function AllUserCollect() {
   const url = "/item/user/collect/";
-  const [collectMain, setcollectMain] = useRecoilState(collectMainState);
+  const [collectAll, setCollectAll] = useRecoilState(userCollectAllState);
   const listItem =
-    collectMain &&
-    Object.values(collectMain).map((collect: any) => (
+    collectAll &&
+    Object.values(collectAll).map((collect: any) => (
       <li key={collect.id}>
         <CollectContainer>
           <LinkStyle to={`${url}${collect.id}`}> {collect.title}</LinkStyle>
@@ -18,10 +17,12 @@ function AllUserCollect() {
       </li>
     ));
   return (
-    <div>
-      Collects
-      <ListStyle>{listItem}</ListStyle>
-    </div>
+    <CenterContent>
+      <PageContainer>
+        <h2>My Collections</h2>
+        <ListStyle>{listItem}</ListStyle>
+      </PageContainer>
+    </CenterContent>
   );
 }
 

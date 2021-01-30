@@ -1,74 +1,59 @@
 import React, {useState, useEffect} from "react";
-import TypeCreate from "../../../../Type/TypeCreate";
 import axios, {AxiosError, AxiosResponse} from "axios";
-import {CenterContent, PageContainer} from "../../../../../CSS/globalCSS";
 import AllUserCollect from "./AllUserCollect";
 import {userCollectAll} from "../axiosUserCollectConfig";
-import {useParams} from "react-router-dom";
 import {useRecoilState} from "recoil";
-import {collectMainState} from "../../../../../Store/atoms";
-
-interface RouteParams {
-  id: any;
-}
+import {userCollectAllState} from "../../../../../Store/userCollect/userAtoms";
+import CreateCollect from "./CreateCollect";
 
 function UserCollect() {
-  const [isLoad, setIsLoad] = useState<boolean>(false);
-  const [error, setError] = useState<any>();
-  const [collectTitles, setCollectTitles] = useState<object | undefined>();
-  const [createTitle, setCreateTitle] = useState<any>();
-  const [createDisable, setCreateDisable] = useState<boolean>(true);
-  const [collectMain, setcollectMain] = useRecoilState(collectMainState);
-  let {id} = useParams<RouteParams>();
+  const [collectTitle, setCollectTitle] = useState<string>();
+  const [submitDisabled, setSubmitDisabled] = useState<boolean>(true);
+  const [collectAll, setcollectAll] = useRecoilState(userCollectAllState);
 
-  const allCollectUser = () => {
-    setIsLoad(true);
+  function allCollectUser() {
     axios(userCollectAll()).then(
       (res: AxiosResponse) => {
-        setcollectMain(res.data);
+        setcollectAll(res.data);
       },
-      (err: AxiosError) => {
-        setError(err.message);
-        console.log(err);
-      }
+      (err: AxiosError) => {}
     );
-    setIsLoad(false);
-  };
+  }
 
-  const createTitleHandler = (title: string) => {
-    setCreateTitle(title);
+  function titleHandler(title: string) {
+    setCollectTitle(title);
     createBtnHandler(title);
-  };
+  }
 
-  const createBtnHandler = (name: string) => {
+  function createBtnHandler(name: string) {
     if (name === "") {
-      setCreateDisable(true);
+      setSubmitDisabled(true);
     } else {
-      setCreateDisable(false);
+      setSubmitDisabled(false);
     }
-  };
+  }
 
-  const onSubmitHandler = (event: React.FormEvent) => {
+  function submitCollect(event: React.FormEvent) {
     event.preventDefault();
-    setCreateTitle("");
-  };
+    setCollectTitle("");
+  }
 
   useEffect(() => {
     allCollectUser();
   }, []);
 
   return (
-    <CenterContent>
-      <PageContainer>
-        <TypeCreate
-          createTitle={createTitle}
-          createTitleHandler={createTitleHandler}
-          onSubmitHandler={onSubmitHandler}
-          createDisable={createDisable}
-        />
-        <AllUserCollect />
-      </PageContainer>
-    </CenterContent>
+    <div>
+      <CreateCollect
+        collectTitle={collectTitle}
+        submitDisabled={submitDisabled}
+        titleHandler={titleHandler}
+        submitCollect={submitCollect}
+      />
+      <br />
+
+      <AllUserCollect />
+    </div>
   );
 }
 

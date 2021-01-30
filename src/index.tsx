@@ -5,7 +5,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import {BrowserRouter} from "react-router-dom";
 import {RecoilRoot} from "recoil";
-import {TransOverlay} from "./Components/Pages/User/userCSS";
+
 ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>

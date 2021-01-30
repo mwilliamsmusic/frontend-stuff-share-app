@@ -1,16 +1,28 @@
 import React, {FC, useRef, useState, useEffect, lazy} from "react";
 import EditDisplay from "./EditDisplay";
 import ItemDisplay from "./ItemDisplay";
+import {
+  ModalCenterContent,
+  ModalPageContainer,
+  TransOverlay,
+} from "../../../../userCSS";
 import {ModalContainer} from "../../../../userCSS";
 import Modal from "../../../../../../../Utils/Modal";
+interface Props {
+  title: string;
+  itemForm: any;
+}
 
-function MD(props) {
-  const [ModalOpen, setModalOpen] = useState(false);
-  const [ModalEdit, setModalEdit] = useState(false);
-  /*
+function ModalDisplay(props: Props) {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
+
+  function modalSwitch() {
+    setModalEdit(!modalEdit);
+  }
+
   const ref = useRef<HTMLDivElement>(null);
   // State for our modal
-
 
   function useOnClickOutside(ref: any, handler: any) {
     useEffect(() => {
@@ -35,21 +47,39 @@ function MD(props) {
 
   // Call hook passing in the ref and a function to call on outside click
   useOnClickOutside(ref, () => setModalOpen(false));
-*/
+
   return (
     <div>
-      {ModalOpen ? (
-        //  <div ref={ref}>
-        <Modal>
-          <ModalContainer>sup</ModalContainer>
-        </Modal>
+      {modalOpen ? (
+        <TransOverlay>
+          <Modal>
+            <div ref={ref}>
+              <ModalCenterContent>
+                <ModalPageContainer>
+                  {modalEdit ? (
+                    <EditDisplay
+                      modalSwitch={modalSwitch}
+                      itemForm={props.itemForm}
+                      title={props.title}
+                    />
+                  ) : (
+                    <ItemDisplay
+                      modalSwitch={modalSwitch}
+                      itemForm={props.itemForm}
+                      title={props.title}
+                    />
+                  )}
+                </ModalPageContainer>
+              </ModalCenterContent>
+            </div>
+          </Modal>
+        </TransOverlay>
       ) : (
-        // </div>
-        //  </div>
+        //  </TransOverlay>
         <button onClick={() => setModalOpen(true)}>{props.title}</button>
       )}
     </div>
   );
 }
 
-export default MD;
+export default ModalDisplay;

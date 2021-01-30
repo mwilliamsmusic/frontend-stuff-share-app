@@ -4,7 +4,7 @@ function UserMe() {
   const user = localStorage.getItem("user");
   return (
     <div>
-      <h3>ME</h3>
+      <h2>{user}</h2>
     </div>
   );
 }

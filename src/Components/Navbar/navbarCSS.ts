@@ -21,6 +21,7 @@ export const LinkStyle = styled(Link)`
     height: 100%;
 
     border: 2px solid rgb(244, 43, 75);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
   }
 `;
 
@@ -31,7 +32,7 @@ export const AuthModalContainer = styled.div`
   border: 2px solid rgb(244, 43, 75);
   border-radius: 5px;
   background-color: white;
-  box-shadow: 4px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
 
   padding: 10px;
 `;
@@ -58,7 +59,7 @@ export const FlexboxContainer = styled.div`
   height: 60px;
   align-items: center;
   justify-content: flex-end;
-  box-shadow: 0px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.5);
   background-image: linear-gradient(
     rgba(0, 0, 0, 0) 75%,
     rgba(0, 0, 0, 0.1),

@@ -46,6 +46,10 @@ export const reactUserCollectOne = "/me/collection/item/";
 
 export const collectItem = "/me/collection/item/";
 
+//Collect
+//GET Collect Data
+export const collectData = "https://localhost:44308/end/usercollect/";
+
 //Collect User Page
 //User ALL GET collection
 export const allUserCollect = "https://localhost:44308/end/usercollect/all/";
@@ -54,3 +58,10 @@ export const itemUserCollect = "https://localhost:44308/end/itemusercollect/";
 
 export const allItemUserCollect =
   "https://localhost:44308/end/itemusercollect/all/";
+
+// Update Collection
+export const updateCollect = "https://localhost:44308/end/usercollect/update";
+
+// Update Item Collection
+export const updateItemCollect =
+  "https://localhost:44308/end/itemusercollect/update";

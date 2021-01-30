@@ -4,10 +4,7 @@ function Main() {
   return (
     <CenterContent>
       <PageContainer>
-        <h2>
-          Share your collections and ranked lists of favorite items with the
-          world.
-        </h2>
+        <h2>Share your stuff with the world.</h2>
       </PageContainer>
     </CenterContent>
   );
