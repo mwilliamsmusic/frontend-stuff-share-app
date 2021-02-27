@@ -1,18 +1,30 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, Fragment} from "react";
 import axios, {AxiosError, AxiosResponse} from "axios";
-import AllUserCollect from "./AllUserCollect";
-import {userCollectAll} from "../axiosUserCollectConfig";
 import {useRecoilState} from "recoil";
 import {userCollectAllState} from "../../../../../Store/userCollect/userAtoms";
-import CreateCollect from "./CreateCollect";
+import {idUser} from "../../../../../Utils/storageData";
+import {Spacer} from "../../../../../CSS/globalCSS";
+import {
+  getAllUserCollectURL,
+  postUserCollectURL,
+} from "../../../../../Utils/URL/apiURL";
+import {ICreateCollect} from "../../Utils/ICollectUser";
+import {requestUser} from "../../Utils/axiosUserConfig";
+import AllCollectView from "./AllCollectView";
+import CreateCollectView from "./CreateCollectView";
+import {redirect401} from "../../Utils/redirect";
 
 function UserCollect() {
   const [collectTitle, setCollectTitle] = useState<string>();
   const [submitDisabled, setSubmitDisabled] = useState<boolean>(true);
   const [collectAll, setcollectAll] = useRecoilState(userCollectAllState);
 
-  function allCollectUser() {
-    axios(userCollectAll()).then(
+  function getAllCollections() {
+    const obj = {
+      userId: 1,
+      collectId: 16,
+    };
+    axios(getUser(getAllUserCollectURL, obj)).then(
       (res: AxiosResponse) => {
         setcollectAll(res.data);
       },
@@ -33,27 +45,35 @@ function UserCollect() {
     }
   }
 
-  function submitCollect(event: React.FormEvent) {
-    event.preventDefault();
+  function postCollect() {
+    const obj: ICreateCollect = {
+      title: collectTitle,
+      userId: idUser,
+    };
+    axios(requestUser(postUserCollectURL, obj)).then(
+      (res: AxiosResponse) => {},
+      (err: AxiosError) => {
+        redirect401(err.response.status);
+      }
+    );
     setCollectTitle("");
   }
 
   useEffect(() => {
-    allCollectUser();
+    getAllCollections();
   }, []);
 
   return (
-    <div>
-      <CreateCollect
+    <Fragment>
+      <CreateCollectView
         collectTitle={collectTitle}
         submitDisabled={submitDisabled}
         titleHandler={titleHandler}
-        submitCollect={submitCollect}
+        postCollect={postCollect}
       />
-      <br />
-
-      <AllUserCollect />
-    </div>
+      <Spacer height="100px" />
+      <AllCollectView />
+    </Fragment>
   );
 }
 

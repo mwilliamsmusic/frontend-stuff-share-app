@@ -1,7 +1,6 @@
-import React, {useState, FC} from "react";
+import React, {useState, Fragment} from "react";
 import SignInForm from "./SignInForm";
 import {signIn} from "../axiosAuthConfig";
-import {frontend} from "../../../Utils/urlCollect";
 import axios, {AxiosResponse, AxiosError} from "axios";
 
 function SignIn() {
@@ -31,11 +30,11 @@ function SignIn() {
     requestHandler();
   };
   const relocate = () => {
-    window.location.href = frontend;
+    window.location.href = process.env.REACT_APP_COLLECT_FRONTEND;
   };
   const requestHandler = () => {
     axios(signIn(username, password)).then(
-      (res) => {
+      (res: AxiosResponse) => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", res.data.username);
         localStorage.setItem("id", res.data.id);
@@ -51,7 +50,7 @@ function SignIn() {
   };
 
   return (
-    <div>
+    <Fragment>
       <SignInForm
         username={username}
         password={password}
@@ -60,7 +59,7 @@ function SignIn() {
         submitHandler={submitHandler}
         disable={disable}
       />
-    </div>
+    </Fragment>
   );
 }
 

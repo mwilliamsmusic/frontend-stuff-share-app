@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React from "react";
 import {CenterContent, PageContainer} from "../../../CSS/globalCSS";
 
 interface Props {

@@ -1,12 +1,12 @@
 import React, {FC} from "react";
 import axios from "axios";
-import {getMe, frontend} from "./../../../Utils/urlCollect";
+
 import NavbarAuthDisplay from "./NavbarAuthDisplay";
 
 const NavbarAuth: FC = () => {
   // Logout user
   const logout = () => {
-    window.location.href = frontend;
+    window.location.href = process.env.FRONTEND;
     localStorage.clear();
   };
 

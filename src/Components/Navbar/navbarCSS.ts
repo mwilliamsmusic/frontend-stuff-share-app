@@ -10,9 +10,11 @@ export const LogoContainer = styled.div`
 `;
 
 export const LinkStyle = styled(Link)`
-  padding: 10px;
-  color: white;
+  padding: 6px;
 
+  color: white;
+  border: 2px solid white;
+  border-radius: 5px;
   text-decoration: none;
   &:hover {
     color: rgb(244, 43, 75);

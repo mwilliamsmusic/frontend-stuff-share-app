@@ -1,6 +1,7 @@
 import React from "react";
 import {StdBtn} from "../../../CSS/globalCSS";
-import {BLUE, PINK} from "../../../CSS/IGlobalCSS";
+import {BLUE, PINK} from "../../../CSS/ITGlobalCSS";
+import {userCollect} from "../../../Utils/URL/reactURL";
 import {
   AuthModalContainer,
   AuthLinkStyle,
@@ -16,11 +17,10 @@ function AuthModalDisplay(props: Props) {
   return (
     <AuthModalContainer>
       <LinkBox>
-        <AuthLinkStyle to="/all/user/collect">My Collections</AuthLinkStyle>
+        <AuthLinkStyle to={userCollect}>My Collections</AuthLinkStyle>
         <ModalTextSpacer />
-        <AuthLinkStyle to="/user/fave/:id">My Favorites</AuthLinkStyle>
-        <ModalTextSpacer />
-        <AuthLinkStyle to="/user/me">Me</AuthLinkStyle>
+
+        <AuthLinkStyle to="/u/me">Me</AuthLinkStyle>
         <ModalTextSpacer />
 
         <StdBtn bgColor={BLUE} brdColor={PINK} onClick={props.logout}>

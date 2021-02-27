@@ -1,36 +1,33 @@
-import {atom, selector} from "recoil";
+import {atom} from "recoil";
 
+// All Collections
 export const userCollectAllState = atom({
   key: "userCollectAllState",
   default: [],
 });
 
+// All Items
 export const userCollectItemAllState = atom({
   key: "userCollectItemAllState",
   default: [],
 });
 
-export const userCollectTitleState = atom({
-  key: "userCollectTitleState",
-  default: {title: ""},
+export const userCollectInfoState = atom({
+  key: "userCollectInfoState",
+  default: {id: 0, title: "", collectForm: null},
 });
 
-export const userCollectFormState = atom({
-  key: "userCollectFormState",
+export const userItemInfoState = atom({
+  key: "userItemInfoState",
+  default: {title: "", collectId: 0, form: null},
+});
+
+export const userItemFormState = atom({
+  key: "userItemFormState",
   default: {},
 });
 
-export const updateCollectFormState = atom({
-  key: "updateCollectFormState",
+export const userItemCollectFormState = atom({
+  key: "userItemCollectFormState",
   default: {},
-});
-
-export const titleString = selector({
-  key: "titleString",
-  get: ({get}) => {
-    const state = get(userCollectTitleState);
-    if (userCollectTitleState.title) {
-      return state.title;
-    } else return "";
-  },
 });

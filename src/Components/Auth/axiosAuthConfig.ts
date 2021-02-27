@@ -1,4 +1,4 @@
-import {signUpURL, signInURL} from "../../Utils/urlCollect";
+import {signUpURL, signInURL} from "../../Utils/URL/apiURL";
 import {Method} from "axios";
 
 const POST = "POST" as Method;

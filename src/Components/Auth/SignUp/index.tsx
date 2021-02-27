@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import SignUpForm from "./SignUpForm";
 import axios, {AxiosError, AxiosResponse} from "axios";
 import {signUp} from "../axiosAuthConfig";
-import {frontend} from "../../../Utils/urlCollect";
 
 function SignUp() {
   const [username, setUsername] = useState<string>("");
@@ -48,7 +47,7 @@ function SignUp() {
   const requestHandler = () => {
     axios(signUp(username, password, email)).then(
       (res: AxiosResponse) => {
-        window.location.href = `${frontend}`;
+        window.location.href = `${process.env.FRONTEND}`;
       },
       (err: AxiosError) => {
         setError(error);

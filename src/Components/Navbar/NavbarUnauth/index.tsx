@@ -8,6 +8,7 @@ import {
 } from "../navbarCSS";
 import {Link} from "react-router-dom";
 import styles from "../../../CSS/fontGlobal.module.css";
+import {mainCollect, signIn, signUp} from "../../../Utils/URL/reactURL";
 
 function NavbarUnauth() {
   return (
@@ -17,19 +18,15 @@ function NavbarUnauth() {
       </LogoContainer>
 
       <FlexboxItem>
-        <LinkStyle to="/main/collect">Collections </LinkStyle>
+        <LinkStyle to={mainCollect}>Collections</LinkStyle>
       </FlexboxItem>
 
       <FlexboxItem>
-        <LinkStyle to="/main/fave">Favorites</LinkStyle>
+        <Link to={signIn}>Sign In</Link>
       </FlexboxItem>
 
       <FlexboxItem>
-        <Link to="/signin">Sign In</Link>
-      </FlexboxItem>
-
-      <FlexboxItem>
-        <Link to="/signup">Sign Up</Link>
+        <Link to={signUp}>Sign Up</Link>
       </FlexboxItem>
       <FlexboxItemSpacer />
     </FlexboxContainer>
