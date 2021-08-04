@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
 import styled from "styled-components";
+import {WHITE} from "../../../../CSS/GlobalCSS/typesGlobalCSS";
 
 // Individual collect/item link
 export const CollectContainer = styled.div`
@@ -68,4 +69,29 @@ export const TransOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+`;
+
+export const FormGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: "field view";
+  align-items: center;
+`;
+
+export const FieldFormArea = styled.div`
+  grid-area: field;
+`;
+
+export const ViewFormArea = styled.div`
+  grid-area: view;
+`;
+
+export const FormContainer = styled.div`
+  background-color: ${WHITE};
+  border-radius: "20px";
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+  margin: 0;
 `;

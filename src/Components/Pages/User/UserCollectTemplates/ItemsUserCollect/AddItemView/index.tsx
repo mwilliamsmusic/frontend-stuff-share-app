@@ -1,46 +1,35 @@
-import React from "react";
-import {
-  CenterContent,
-  PageContainer,
-  StdBtn,
-  StdForm,
-} from "../../../../../../CSS/globalCSS";
-import {BLUE, PINK} from "../../../../../../CSS/ITGlobalCSS";
+import React, {Fragment} from "react";
+import {StdBtn, StdForm} from "../../../../../../CSS/GlobalCSS/globalCSS";
+import {BLUE, PINK} from "../../../../../../CSS/GlobalCSS/typesGlobalCSS";
+import {useAppSelector} from "../../../../../../Utils/Redux/ReduxHook";
 
 interface Props {
   itemDisable: boolean;
   itemHandler: (title: string) => void;
   postItem: () => void;
-  title: string;
   itemTitle: string;
 }
 
 function AddItemView(props: Props) {
+  const collectInfo = useAppSelector((state) => state.collectUser);
   return (
-    <CenterContent>
-      <PageContainer>
-        <h2>Add Item to {props.title} Collection</h2>
-        <StdForm onSubmit={props.postItem}>
-          <label htmlFor="create-item">
-            Title:{"  "}
-            <input
-              id="create-item"
-              value={props.itemTitle}
-              placeholder="Enter Item Title"
-              onChange={(e) => props.itemHandler(e.target.value)}
-            />
-            <StdBtn
-              bgColor={BLUE}
-              brdColor={PINK}
-              type="submit"
-              disabled={props.itemDisable}
-            >
-              Create
-            </StdBtn>
-          </label>
-        </StdForm>
-      </PageContainer>
-    </CenterContent>
+    <Fragment>
+      <h2>Add Item to {collectInfo.title} Collection</h2>
+      <StdForm onSubmit={props.postItem}>
+        <label htmlFor="create-item">
+          Title:{"  "}
+          <input
+            id="create-item"
+            value={props.itemTitle}
+            placeholder="Enter Item Title"
+            onChange={(e) => props.itemHandler(e.target.value)}
+          />
+          <StdBtn bgColor={BLUE} type="submit" disabled={props.itemDisable}>
+            Create
+          </StdBtn>
+        </label>
+      </StdForm>
+    </Fragment>
   );
 }
 

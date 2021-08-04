@@ -1,5 +1,6 @@
 import React from "react";
-import {CenterContent, PageContainer} from "../../../CSS/globalCSS";
+import {CenterContent, PageContainer} from "../../../CSS/GlobalCSS/globalCSS";
+
 function Main() {
   return (
     <CenterContent>

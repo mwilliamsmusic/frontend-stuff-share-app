@@ -1,32 +1,26 @@
-import React, {Fragment, useState} from "react";
-import {CenterContent, PageContainer} from "../../../../../../../CSS/globalCSS";
-import FormCollectView from "./FormCollectView";
+import React, {Dispatch, SetStateAction, SyntheticEvent, useState} from "react";
+import {
+  CenterContent,
+  PageContainer,
+} from "../../../../../../../CSS/GlobalCSS/globalCSS";
+import {useAppSelector} from "../../../../../../../Utils/Redux/ReduxHook";
+import EditCollectForm from "./EditCollectForm";
 
-interface Props {
-  deleteFormKey: (key: string) => void;
-  addFormKey: (key: string) => void;
-}
-
-function CollectForm(props: Props) {
-  const [isForm, setIsForm] = useState<boolean>(false);
-
-  function formState() {
-    setIsForm(!isForm);
-  }
-
+function CollectForm() {
+  const collectInfo = useAppSelector((state) => state.collectUser);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  //
   return (
-    <Fragment>
-      <h2>Edit Collection Form</h2>
-      {isForm ? (
-        <FormCollectView
-          formState={formState}
-          deleteFormKey={props.deleteFormKey}
-          addFormKey={props.addFormKey}
-        />
-      ) : (
-        <button onClick={formState}>Item Form</button>
-      )}
-    </Fragment>
+    <CenterContent>
+      <PageContainer>
+        <h2>Edit {collectInfo.title} Form</h2>
+        {isEdit ? (
+          <EditCollectForm setIsEdit={setIsEdit} />
+        ) : (
+          <button onClick={() => setIsEdit(true)}>Item Form</button>
+        )}
+      </PageContainer>
+    </CenterContent>
   );
 }
 

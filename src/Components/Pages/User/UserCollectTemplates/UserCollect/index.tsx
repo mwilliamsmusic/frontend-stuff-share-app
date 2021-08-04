@@ -1,66 +1,65 @@
 import React, {useState, useEffect, Fragment} from "react";
 import axios, {AxiosError, AxiosResponse} from "axios";
-import {useRecoilState} from "recoil";
-import {userCollectAllState} from "../../../../../Store/userCollect/userAtoms";
-import {idUser} from "../../../../../Utils/storageData";
-import {Spacer} from "../../../../../CSS/globalCSS";
 import {
-  getAllUserCollectURL,
+  getAllUserCollectsURL,
   postUserCollectURL,
 } from "../../../../../Utils/URL/apiURL";
-import {ICreateCollect} from "../../Utils/ICollectUser";
-import {requestUser} from "../../Utils/axiosUserConfig";
-import AllCollectView from "./AllCollectView";
+import {ICreateCollect} from "../../Utils/Interfaces/ICollectUser";
+import {getAllUser, postUser} from "../../Utils/axiosUserConfig";
 import CreateCollectView from "./CreateCollectView";
-import {redirect401} from "../../Utils/redirect";
+
+//import {disableButton} from "../../../../../Utils/validation";
+import AllCollectsView from "./AllCollectsView";
+import {Spacer} from "../../../../../CSS/GlobalCSS/globalCSS";
+import {disableButton} from "../../../../../Utils/validation";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../Utils/Redux/ReduxHook";
+import {
+  IAllCollectsUser,
+  updateAllCollectsUser,
+} from "../../../../../Utils/Redux/Modules/user/allCollectsUserSlice";
+import {
+  ICollectTagsUser,
+  updateTagsCollectUser,
+} from "../../../../../Utils/Redux/Modules/user/tagsCollectUserSlice";
 
 function UserCollect() {
-  const [collectTitle, setCollectTitle] = useState<string>();
+  const [collectTitle, setCollectTitle] = useState<string>("");
   const [submitDisabled, setSubmitDisabled] = useState<boolean>(true);
-  const [collectAll, setcollectAll] = useRecoilState(userCollectAllState);
 
-  function getAllCollections() {
-    const obj = {
-      userId: 1,
-      collectId: 16,
-    };
-    axios(getUser(getAllUserCollectURL, obj)).then(
+  const dispatch = useAppDispatch();
+
+  // Gets all user collections
+  function getAllCollects() {
+    axios(getAllUser(getAllUserCollectsURL)).then(
       (res: AxiosResponse) => {
-        setcollectAll(res.data);
+        const collects: Array<IAllCollectsUser> = res.data;
+        dispatch(updateAllCollectsUser(collects));
       },
       (err: AxiosError) => {}
     );
   }
-
-  function titleHandler(title: string) {
+  // Create title handler
+  function createTitle(title: string) {
     setCollectTitle(title);
-    createBtnHandler(title);
+    setSubmitDisabled(disableButton(title));
   }
-
-  function createBtnHandler(name: string) {
-    if (name === "") {
-      setSubmitDisabled(true);
-    } else {
-      setSubmitDisabled(false);
-    }
-  }
-
+  // Create collect with title
   function postCollect() {
-    const obj: ICreateCollect = {
+    const request: ICreateCollect = {
       title: collectTitle,
-      userId: idUser,
     };
-    axios(requestUser(postUserCollectURL, obj)).then(
+    axios(postUser(postUserCollectURL, request)).then(
       (res: AxiosResponse) => {},
-      (err: AxiosError) => {
-        redirect401(err.response.status);
-      }
+      (err: AxiosError) => {}
     );
     setCollectTitle("");
   }
 
   useEffect(() => {
-    getAllCollections();
+    getAllCollects();
   }, []);
 
   return (
@@ -68,11 +67,11 @@ function UserCollect() {
       <CreateCollectView
         collectTitle={collectTitle}
         submitDisabled={submitDisabled}
-        titleHandler={titleHandler}
+        createTitle={createTitle}
         postCollect={postCollect}
       />
-      <Spacer height="100px" />
-      <AllCollectView />
+      <Spacer height="50px" />
+      <AllCollectsView />
     </Fragment>
   );
 }

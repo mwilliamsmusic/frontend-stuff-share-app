@@ -7,11 +7,35 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: "100vh";
   min-height: "100vh";
-
-  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+  background-color: rgba(44, 78, 245, 1);
+  /*
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
   background-color: white;
-}
 
+ BLUE rgba(44, 78, 245,1);
+PINK  rgba(244,43,75,1);
+  */
+  /*background-color: rgba(44, 78, 245, 0.2);
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(244, 43, 75, 1),
+    rgba(244, 43, 75, 1) 4px,
+    rgba(244, 43, 75, 1) 4px,
+    rgba(44, 78, 245, 1) 5px,
+    rgba(44, 78, 245, 1) 5px
+  );
+
+  background-size: 5000px 5000px;
+
+  background: linear-gradient(rgba(244, 43, 75, 1), rgba(44, 78, 245, 1));
+   */
+}
+body::before {
+  background-color: rgba(244, 43, 75, 1);
+  position: fixed;
+  z-index: -10;
+  height: 200px;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

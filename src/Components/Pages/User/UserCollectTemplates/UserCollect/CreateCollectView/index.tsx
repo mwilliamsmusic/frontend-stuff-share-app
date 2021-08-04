@@ -1,16 +1,16 @@
 import React, {useState} from "react";
-import {BLUE, PINK} from "../../../../../../CSS/ITGlobalCSS";
 import {
-  StdForm,
-  StdBtn,
-  PageContainer,
   CenterContent,
-} from "../../../../../../CSS/globalCSS";
+  PageContainer,
+  StdBtn,
+  StdForm,
+} from "../../../../../../CSS/GlobalCSS/globalCSS";
+import {BLUE, PINK} from "../../../../../../CSS/GlobalCSS/typesGlobalCSS";
 
 interface Props {
   collectTitle: string;
   submitDisabled: boolean;
-  titleHandler: (title: string) => void;
+  createTitle: (title: string) => void;
   postCollect: () => void;
 }
 
@@ -21,16 +21,15 @@ function CreateCollectView(props: Props) {
         <h2>Create Collection</h2>
         <StdForm onSubmit={props.postCollect}>
           <label htmlFor="create-collect">
-            Title:{"  "}
+            Title:
             <input
               id="create-collect"
               value={props.collectTitle}
               placeholder="Enter Collection Title"
-              onChange={(e) => props.titleHandler(e.target.value)}
+              onChange={(e) => props.createTitle(e.target.value)}
             />
             <StdBtn
               bgColor={BLUE}
-              brdColor={PINK}
               type="submit"
               disabled={props.submitDisabled}
             >

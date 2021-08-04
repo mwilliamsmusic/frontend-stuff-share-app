@@ -1,5 +1,5 @@
 import React from "react";
-import {PageContainer, CenterContent} from "../../../CSS/globalCSS";
+import {CenterContent, PageContainer} from "../../../CSS/GlobalCSS/globalCSS";
 
 interface Props {
   username: string;

@@ -1,5 +1,5 @@
 import React from "react";
-import {CenterContent, PageContainer} from "../../../CSS/globalCSS";
+import {CenterContent, PageContainer} from "../../../CSS/GlobalCSS/globalCSS";
 
 interface Props {
   submitHandler: (event: React.FormEvent) => void;

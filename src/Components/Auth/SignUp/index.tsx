@@ -1,14 +1,17 @@
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import SignUpForm from "./SignUpForm";
 import axios, {AxiosError, AxiosResponse} from "axios";
 import {signUp} from "../axiosAuthConfig";
+import ResponsePrompt from "../../../Utils/Components/ResponsePrompt";
 
 function SignUp() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [disable, setDisable] = useState<boolean>(true);
-  const [error, setError] = useState<any>();
+  const [isPrompt, setIsPrompt] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
 
   const btnHandler = (username: string, password: string, email: string) => {
     if (
@@ -47,16 +50,28 @@ function SignUp() {
   const requestHandler = () => {
     axios(signUp(username, password, email)).then(
       (res: AxiosResponse) => {
-        window.location.href = `${process.env.FRONTEND}`;
+        window.location.href = `${process.env.REACT_APP_FRONTEND}`;
       },
       (err: AxiosError) => {
-        setError(error);
+        try {
+          setMessage(err.response.data.message);
+          setIsError(false);
+          setIsPrompt(true);
+        } catch (e) {
+          setMessage("Please try registering again.");
+          setIsError(true);
+          setIsPrompt(true);
+        }
       }
     );
   };
-
+  /*
+  {isPrompt ? (
+        <ResponsePrompt message={message} isPrompt={isPrompt} />
+      ) : null}
+*/
   return (
-    <div>
+    <Fragment>
       <SignUpForm
         username={username}
         password={password}
@@ -67,7 +82,7 @@ function SignUp() {
         submitHandler={submitHandler}
         disable={disable}
       />
-    </div>
+    </Fragment>
   );
 }
 

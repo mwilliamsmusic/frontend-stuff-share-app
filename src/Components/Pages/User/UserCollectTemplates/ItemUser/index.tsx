@@ -1,44 +1,71 @@
 import axios, {AxiosError, AxiosResponse} from "axios";
-import React, {Fragment, useEffect, useState} from "react";
+import React, {SyntheticEvent, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {useRecoilState} from "recoil";
-import {Spacer} from "../../../../../CSS/globalCSS";
 import {
-  userItemFormState,
-  userItemInfoState,
-} from "../../../../../Store/userCollect/userAtoms";
-import {IKey} from "../../../../../Utils/Components/ITGlobal";
-import {idUser} from "../../../../../Utils/storageData";
+  CenterContent,
+  PageContainer,
+  Spacer,
+} from "../../../../../CSS/GlobalCSS/globalCSS";
+import {
+  IAllItemsUser,
+  updateAllItemsUser,
+} from "../../../../../Utils/Redux/Modules/user/allItemsUserSlice";
+import {updateItemFormUser} from "../../../../../Utils/Redux/Modules/user/itemFormUserSlice";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../Utils/Redux/ReduxHook";
+import {usernameLS} from "../../../../../Utils/storageData";
 import {
   getUserItemURL,
-  patchUserCollectURL,
+  imagePostURL,
+  updateItemFormURL,
 } from "../../../../../Utils/URL/apiURL";
-import {patchUser, requestUser} from "../../Utils/axiosUserConfig";
-import {addField} from "../../Utils/editForm";
-import {IGetItem, IPatchItem} from "../../Utils/IItemUser";
-import Item from "./Item";
+import {disableButton} from "../../../../../Utils/validation";
+import {patchUser, postImage, postUser} from "../../Utils/axiosUserConfig";
+import {IDeleteCollect, IForm} from "../../Utils/Interfaces/ICollectUser";
+import {IGetItem, IItemForm} from "../../Utils/Interfaces/IItemUser";
+import EditItemUserView from "./EditItemUserView";
 
 interface RouteParams {
   id: string;
 }
 
-export function ItemUser() {
+function ItemUser() {
   const {id} = useParams<RouteParams>();
   const idString: string = id;
-  const [userItemInfo, setUserItemInfo] = useRecoilState(userItemInfoState);
-  const [userItemForm, setUserItemForm] = useRecoilState(userItemFormState);
+
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
-  // PATCH item Form
-  function patchItemForm(formObj: object) {
-    const data: IPatchItem = {
-      id: parseInt(idString),
-      title: userItemInfo.title,
-      userId: idUser,
-      collectId: userItemInfo.collectId,
-      form: JSON.stringify(formObj),
+  const [newField, setNewField] = useState<string>("");
+  const [fieldDisabled, setFieldDisabled] = useState<boolean>(true);
+
+  const [valueField, setValueField] = useState<string>("");
+  const [valueDisabled, setValueDisabled] = useState<boolean>(true);
+
+  const itemForm = useAppSelector((state) => state.itemFormUser);
+  const dispatch = useAppDispatch();
+
+  // Update item Form
+  function updateItemForm(formObj: object) {
+    const data: IItemForm = {
+      itemId: parseInt(idString, 10),
+      itemForm: JSON.stringify(formObj),
     };
-    axios(patchUser(patchUserCollectURL, data)).then(
+    axios(patchUser(updateItemFormURL, data)).then(
+      (res: AxiosResponse) => {},
+      (err: AxiosError) => {}
+    );
+  }
+
+  function uploadItemImage(e: React.FormEvent<HTMLFormElement>, file: any) {
+    //  e.preventDefault();
+    const formData = new FormData();
+    formData.append("imageName", usernameLS + idString);
+    formData.append("image", file);
+    formData.append("username", usernameLS);
+
+    axios(postImage(imagePostURL, formData)).then(
       (res: AxiosResponse) => {},
       (err: AxiosError) => {}
     );
@@ -46,31 +73,75 @@ export function ItemUser() {
 
   function getItem() {
     const data: IGetItem = {
-      id: parseInt(idString, 10),
-      userId: idUser,
+      itemId: parseInt(idString, 10),
     };
-    axios(requestUser(getUserItemURL, idString)).then(
+    axios(postUser(getUserItemURL, data)).then(
       (res: AxiosResponse) => {
-        setUserItemInfo(res.data);
-        setUserItemForm(JSON.parse(res.data.form));
+        const items: Array<IAllItemsUser> = res.data;
+        dispatch(updateAllItemsUser(items));
+
+        const itemForm: Array<IForm> = res.data.itemForm;
+        dispatch(updateItemFormUser(itemForm));
       },
       (err: AxiosError) => {}
     );
   }
 
-  function saveForm() {}
+  function saveForm() {
+    const data: IItemForm = {
+      itemId: parseInt(idString, 10),
+      itemForm: JSON.stringify(itemForm),
+    };
+    axios(patchUser(updateItemFormURL, data)).then(
+      (res: AxiosResponse) => {},
+      (err: AxiosError) => {}
+    );
+  }
 
-  function addFormField(key: string) {
-    /*
-    const form = userItemForm;
+  function fieldHandler(field: string) {
+    setFieldDisabled(disableButton(field));
+    setNewField(field);
+  }
 
-    const addKey: IKey = {};
-    addKey[key] = "";
+  function valueHandler(field: string) {
+    setValueDisabled(disableButton(field));
+    setValueField(field);
+  }
 
-    const newForm = {...form, ...addKey};
-    */
-    // const newObj: object = addField();
-    //   patchItemForm(newObj);
+  function addFieldState(event: SyntheticEvent) {
+    event.preventDefault();
+
+    if (!itemForm.some((form) => form.field === newField)) {
+      const fieldObj: IForm = {field: newField, value: ""};
+      const newArr: Array<IForm> = [];
+      newArr.push(fieldObj);
+      const mergeState: Array<IForm> = [...itemForm, ...newArr];
+      dispatch(updateItemFormUser(mergeState));
+    }
+    setNewField("");
+    // setNewField(null);
+    setFieldDisabled(false);
+    //addField(iFormView, newField);
+    // setIFormView(addField);
+  }
+
+  function updateFieldState(event: SyntheticEvent, field: string) {
+    event.preventDefault();
+    const stateArr: Array<IForm> = [...itemForm];
+    const objIndex = stateArr.findIndex((obj) => obj.field === field);
+    let obj = {field: field, value: valueField} as IForm;
+    stateArr.splice(objIndex, 1, obj);
+
+    dispatch(updateItemFormUser(stateArr));
+  }
+  function deleteFieldState(event: SyntheticEvent, deleteKey: string) {
+    event.preventDefault();
+    const someArray: Array<IForm> = itemForm;
+
+    const newArr: Array<IForm> = someArray.filter(
+      (key) => key.field !== deleteKey
+    );
+    dispatch(updateItemFormUser(newArr));
   }
 
   useEffect(() => {
@@ -78,16 +149,26 @@ export function ItemUser() {
   }, []);
 
   return (
-    <Fragment>
-      <Item
-        saveForm={saveForm}
-        isEdit={isEdit}
-        setIsEdit={setIsEdit}
-        patchItemForm={patchItemForm}
-      />
-      <Spacer height="100px" />
-      <AddField addFormField={addFormField} />
-    </Fragment>
+    <CenterContent>
+      <PageContainer>
+        <EditItemUserView
+          valueField={valueField}
+          valueHandler={valueHandler}
+          saveForm={saveForm}
+          addFieldState={addFieldState}
+          deleteFieldState={deleteFieldState}
+          fieldHandler={fieldHandler}
+          fieldDisabled={fieldDisabled}
+          newField={newField}
+          updateFieldState={updateFieldState}
+          uploadItemImage={uploadItemImage}
+          isEdit={isEdit}
+          setIsEdit={setIsEdit}
+        />
+
+        <Spacer height="50px" />
+      </PageContainer>
+    </CenterContent>
   );
 }
 

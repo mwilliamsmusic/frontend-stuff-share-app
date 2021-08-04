@@ -1,16 +1,22 @@
-import React, {FC} from "react";
-import NavbarAuth from "./NavbarAuth";
-import NavbarUnauth from "./NavbarUnauth";
-const Navbar: FC = () => {
-  let display;
-  const valid = localStorage.getItem("log");
-  if (valid === "true") {
-    display = <NavbarAuth />;
-  } else {
-    display = <NavbarUnauth />;
-  }
+import React, {Fragment} from "react";
+import {CenterContent} from "../../CSS/GlobalCSS/globalCSS";
 
-  return display;
-};
+import {logLS} from "../../Utils/storageData";
+import NavbarAuthView from "./NavbarAuthView";
+import NavUnauthView from "./NavUnauthView";
+
+function Navbar() {
+  function logout() {
+    window.location.href = process.env.FRONTEND;
+    localStorage.clear();
+  }
+  const display = logLS ? (
+    <NavbarAuthView logout={logout} />
+  ) : (
+    <NavUnauthView />
+  );
+
+  return <CenterContent>{display}</CenterContent>;
+}
 
 export default Navbar;

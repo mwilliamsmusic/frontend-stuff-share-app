@@ -17,7 +17,7 @@ const size: IScreen = {
 
 const device = {
   mobile: `(max-width: ${size.mobile})`,
-  tablet: `(max-width: ${size.tablet})`,
+  tablet: `max-width: ${size.tablet}`,
   sm: `(max-width: ${size.sm})`,
   lg: `(max-width: ${size.lg})`,
   tv: `(min-width: ${size.tv})`,

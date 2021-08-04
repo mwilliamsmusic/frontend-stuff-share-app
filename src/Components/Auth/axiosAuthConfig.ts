@@ -25,7 +25,7 @@ export const signIn = (username: string, password: string) => {
       Username: `${username}`,
       Password: `${password}`,
     },
-
+    withCredentials: true,
     timeout: 60000,
   };
   return options;

@@ -4,15 +4,16 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import {BrowserRouter} from "react-router-dom";
-import {RecoilRoot} from "recoil";
+import {Provider} from "react-redux";
+import store from "./Utils/Redux/store";
 
 ReactDOM.render(
   <React.StrictMode>
-    <RecoilRoot>
+    <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </RecoilRoot>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

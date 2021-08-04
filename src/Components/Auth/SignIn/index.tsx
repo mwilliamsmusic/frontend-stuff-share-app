@@ -30,14 +30,12 @@ function SignIn() {
     requestHandler();
   };
   const relocate = () => {
-    window.location.href = process.env.REACT_APP_COLLECT_FRONTEND;
+    window.location.href = process.env.REACT_APP_FRONTEND;
   };
   const requestHandler = () => {
     axios(signIn(username, password)).then(
       (res: AxiosResponse) => {
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("user", res.data.username);
-        localStorage.setItem("id", res.data.id);
+        localStorage.setItem("user", res.data);
         localStorage.setItem("log", "true");
         relocate();
       },

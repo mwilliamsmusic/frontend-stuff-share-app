@@ -2,7 +2,7 @@ import React from "react";
 import {Route, Switch} from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Main from "./Components/Pages/Main/Main";
-import {Spacer} from "./CSS/globalCSS";
+
 import SignIn from "./Components/Auth/SignIn";
 import SignUp from "./Components/Auth/SignUp";
 import UserCollect from "./Components/Pages/User/UserCollectTemplates/UserCollect";
@@ -17,14 +17,16 @@ import {
   signUp,
   userCollect,
   userMe,
-} from "./Utils/URL/reactURL";
+} from "./Utils/URL/frontURL";
 import ItemUser from "./Components/Pages/User/UserCollectTemplates/ItemUser";
+import {GradientBackground, Spacer} from "./CSS/GlobalCSS/globalCSS";
 
 function App() {
   return (
-    <div>
+    <GradientBackground>
+      <Spacer height="10px" />
       <Navbar />
-      <Spacer height="100px" />
+      <Spacer height="50px" />
       <Switch>
         <Route path={signIn} component={SignIn} />
         <Route path={signUp} component={SignUp} />
@@ -38,9 +40,9 @@ function App() {
 
         <Route path="/*" component={Main} />
       </Switch>
-    </div>
+      <Spacer height="500px" />
+    </GradientBackground>
   );
 }
 
 export default App;
-//<Route path="/item/user/:id" component={} />

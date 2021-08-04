@@ -1,36 +1,49 @@
-import React, {Fragment, useState} from "react";
+import axios, {AxiosError, AxiosResponse} from "axios";
+import React, {FormEvent, Fragment, useState} from "react";
 import {
-  CenterContent,
-  PageContainer,
+  DisplayImage,
+  Spacer,
   StdBtn,
   StdForm,
-} from "../../../../../../../CSS/globalCSS";
-import {BLUE, PINK} from "../../../../../../../CSS/ITGlobalCSS";
+} from "../../../../../../../CSS/GlobalCSS/globalCSS";
+import {BLUE, PINK} from "../../../../../../../CSS/GlobalCSS/typesGlobalCSS";
+import {useAppSelector} from "../../../../../../../Utils/Redux/ReduxHook";
+
+import {
+  COLLECT_ORIGIN,
+  imageFormData,
+  postImage,
+} from "../../../../Utils/axiosUserConfig";
 
 interface Props {
-  uploadCollectImg: (e: React.FormEvent<HTMLFormElement>, file: any) => void;
+  uploadCollectImg: (e: FormEvent, file: any) => void;
 }
 
 function CollectImageView(props: Props) {
-  const [selectedFile, setSelectedFile] = useState<any>(null);
+  const [file, setFile] = useState<any>(null);
+  const collect = useAppSelector((state) => state.collectUser);
+
   return (
     <Fragment>
-      <h2>Edit Image</h2>
-      <StdForm
-        onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
-          props.uploadCollectImg(e, selectedFile)
-        }
-      >
+      <h2>Edit {collect.title} Image</h2>
+      <StdForm onSubmit={(e) => props.uploadCollectImg(e, file)}>
+        <DisplayImage width="400px">
+          <img
+            src={`${process.env.REACT_APP_IMAGE_BACKEND}${collect.image}`}
+            alt={collect.title}
+          ></img>
+        </DisplayImage>
+
+        <Spacer height="25px" />
         <label htmlFor="image">
           <input
             //  id="collect-image"
             // name="collect-image"
             type="file"
-            accept=".png, .jpg, .jpeg"
-            onChange={(e) => setSelectedFile(e.target.files[0])}
+            onChange={(e) => setFile(e.target.files[0])}
           />
 
-          <StdBtn bgColor={BLUE} brdColor={PINK} type="submit">
+          <StdBtn bgColor={BLUE} type="submit">
             Upload
           </StdBtn>
         </label>
