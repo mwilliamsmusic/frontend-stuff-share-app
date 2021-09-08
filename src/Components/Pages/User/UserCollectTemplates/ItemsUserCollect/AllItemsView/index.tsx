@@ -21,9 +21,9 @@ function AllItemsView(props: Props) {
     allItems &&
     Object.values(allItems).map((item: any) => (
       <UnorderListStyle>
-        <li key={item.collectId}>
+        <li key={item.id}>
           <CollectContainer>
-            <LinkStyle to={`${itemUser}${item.itemId}`}>{item.title}</LinkStyle>
+            <LinkStyle to={`${itemUser}${item.id}`}>{item.title}</LinkStyle>
           </CollectContainer>
         </li>
       </UnorderListStyle>

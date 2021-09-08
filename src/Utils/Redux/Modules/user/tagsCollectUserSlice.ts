@@ -1,19 +1,14 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {ITag} from "../../../basicInterfaces";
 import {RootState} from "../../store";
 
-export interface ICollectTagsUser {
-  tagName: string;
-}
-const initialState: Array<ICollectTagsUser> = [];
+const initialState: Array<ITag> = [];
 
 export const tagsCollectUserSlice = createSlice({
   name: "tagsCollectUser",
   initialState,
   reducers: {
-    updateTagsCollectUser: (
-      state,
-      action: PayloadAction<Array<ICollectTagsUser>>
-    ) => {
+    updateTagsCollectUser: (state, action: PayloadAction<Array<ITag>>) => {
       return (state = action.payload);
     },
   },

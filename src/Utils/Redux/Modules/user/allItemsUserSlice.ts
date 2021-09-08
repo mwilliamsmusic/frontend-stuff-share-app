@@ -1,15 +1,16 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IForm} from "../../../../Components/Pages/User/Utils/Interfaces/ICollectUser";
+import {IForm} from "../../../basicInterfaces";
+
 import {RootState} from "../../store";
 
 export interface IAllItemsUser {
-  itemId: number | null;
+  id: number | null;
   collectId: number | null;
+  userId: number | null;
   title: string | null;
-  path: string | null;
   itemForm: Array<IForm> | null;
   status: string | null;
-  image: string | null;
+  imagePath: string | null;
 }
 
 const initialState: Array<IAllItemsUser> = [];

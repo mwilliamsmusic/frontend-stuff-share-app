@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React, {FormEvent, Fragment} from "react";
 import {StdBtn, StdForm} from "../../../../../../CSS/GlobalCSS/globalCSS";
 import {BLUE, PINK} from "../../../../../../CSS/GlobalCSS/typesGlobalCSS";
 import {useAppSelector} from "../../../../../../Utils/Redux/ReduxHook";
@@ -6,7 +6,7 @@ import {useAppSelector} from "../../../../../../Utils/Redux/ReduxHook";
 interface Props {
   itemDisable: boolean;
   itemHandler: (title: string) => void;
-  postItem: () => void;
+  postItem: (event: FormEvent) => void;
   itemTitle: string;
 }
 
@@ -15,7 +15,7 @@ function AddItemView(props: Props) {
   return (
     <Fragment>
       <h2>Add Item to {collectInfo.title} Collection</h2>
-      <StdForm onSubmit={props.postItem}>
+      <StdForm onSubmit={(event) => props.postItem(event)}>
         <label htmlFor="create-item">
           Title:{"  "}
           <input

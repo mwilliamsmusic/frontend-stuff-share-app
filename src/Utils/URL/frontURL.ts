@@ -15,7 +15,8 @@ export const signIn: AuthURL = "/signin/";
 export const mainCollect: MainURL = "/main/collect/";
 
 // User
-export const userCollect: UserURL = "/user/all/collection/";
+export const collectUser: UserURL = "/user/all/collection/";
+export const collectUserId = "/user/all/collection/:id";
 export const itemsUserCollect: UserURL = "/usercollection/all/items/";
 export const itemsUserCollectId: IdURL = "/usercollection/all/items/:id";
 export const itemUser: UserURL = "/useritem/";

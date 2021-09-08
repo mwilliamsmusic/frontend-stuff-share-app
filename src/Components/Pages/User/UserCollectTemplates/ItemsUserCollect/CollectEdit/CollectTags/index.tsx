@@ -1,26 +1,22 @@
-import axios, {AxiosError, AxiosResponse} from "axios";
-import React, {
-  FormEvent,
-  Fragment,
-  SyntheticEvent,
-  useEffect,
-  useState,
-} from "react";
-import {
-  ICollectTagsUser,
-  updateTagsCollectUser,
-} from "../../../../../../../Utils/Redux/Modules/user/tagsCollectUserSlice";
+import axios from "axios";
+import React, {FormEvent, Fragment, SyntheticEvent, useState} from "react";
+import {ITag} from "../../../../../../../Utils/basicInterfaces";
+import {updateTagsCollectUser} from "../../../../../../../Utils/Redux/Modules/user/tagsCollectUserSlice";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../../../../Utils/Redux/ReduxHook";
 import {
   addCollectTagURL,
-  getAllCollectTagURL,
   removeCollectTagURL,
 } from "../../../../../../../Utils/URL/apiURL";
 import {disableButton} from "../../../../../../../Utils/validation";
-import {getAllUser, postUser} from "../../../../Utils/axiosUserConfig";
+import {postUser} from "../../../../Utils/axiosUserConfig";
+import {
+  IRemoveCollectTag,
+  IUserCollectTag,
+} from "../../../../Utils/Interfaces/IUser";
+
 import AddTagView from "./AddTagView";
 import TagsCollectView from "./TagsCollectView";
 
@@ -40,16 +36,16 @@ function CollectTags() {
 
   async function postTag(event: FormEvent) {
     event.preventDefault();
-
-    if (!tags.some((tag) => tag.tagName == addTag)) {
+    const newTags = tags;
+    if (!newTags.some((tag) => tag.tagName == addTag)) {
       try {
-        const data = {tagName: addTag, collectId: collect.collectId};
+        const data: IUserCollectTag = {collectId: collect.id, tagName: addTag};
         const tag = await axios(postUser(addCollectTagURL, data));
 
-        const tagObj: ICollectTagsUser = {tagName: addTag};
-        const newArr: Array<ICollectTagsUser> = [];
+        const tagObj: ITag = tag.data;
+        const newArr: Array<ITag> = [];
         newArr.push(tagObj);
-        const dispatchArray: Array<ICollectTagsUser> = [...tags, ...newArr];
+        const dispatchArray: Array<ITag> = [...newTags, ...newArr];
         dispatch(updateTagsCollectUser(dispatchArray));
       } catch (error) {}
     }
@@ -57,15 +53,16 @@ function CollectTags() {
     setDisabledTag(false);
   }
 
-  async function removeTag(event: SyntheticEvent, tagRemove: string) {
+  async function removeTag(event: SyntheticEvent, tagRemove: ITag) {
     event.preventDefault();
     try {
-      const data = {tagName: tagRemove, collectId: collect.collectId};
+      const data: IRemoveCollectTag = {
+        id: tagRemove.id,
+        collectId: collect.id,
+      };
       const tagPost = await axios(postUser(removeCollectTagURL, data));
 
-      const newArr: Array<ICollectTagsUser> = tags.filter(
-        (key) => key.tagName !== tagRemove
-      );
+      const newArr: Array<ITag> = tags.filter((key) => key.id !== tagRemove.id);
 
       dispatch(updateTagsCollectUser(newArr));
     } catch (error) {}

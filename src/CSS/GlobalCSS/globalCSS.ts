@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import {
   IDisplayImage,
+  IGradientBorder,
   ILineBreak,
   IResponsePrompt,
   ISpacer,
   IStdBtn,
 } from "./IGlobalCSS";
+import {BORDER_RADIUS, GRADIENT} from "./typesGlobalCSS";
+import breakpoints from "../breakpoints";
 
 export const GradientBackground = styled.div`
   height: 100%;
@@ -28,7 +31,7 @@ export const CenterContent = styled.div`
 
 // Main page content container
 export const PageContainer = styled.div`
-  border-radius: 8px;
+  border-radius: ${BORDER_RADIUS};
   display: flex;
   justify-content: center;
   flex-flow: column;
@@ -152,5 +155,25 @@ export const TagStyle = styled.div`
     border-radius: 5px;
     color: white;
     background-color: rgba(44, 78, 245, 1);
+  }
+`;
+
+export const GradientBoarder = styled.div<IGradientBorder>`
+  max-width: ${(w) => w.maxWidth};
+  padding: 1rem;
+  position: relative;
+  background: linear-gradient(to right, ${GRADIENT});
+  padding: 3px;
+`;
+
+export const LargeScreen = styled.div`
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+export const SmallScreen = styled.div`
+  @media only screen and (min-width: 769px) {
+    display: none;
   }
 `;

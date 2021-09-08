@@ -1,4 +1,4 @@
-import React, {FormEvent, SyntheticEvent} from "react";
+import React, {FormEvent} from "react";
 import {
   StdBtn,
   StdForm,
@@ -20,7 +20,7 @@ function AddCollectFieldView(props: Props) {
       }}
     >
       <label htmlFor="add-form-field">
-        Add Field:
+        {`Add Field: `}
         <input
           type="text"
           id="field-name"

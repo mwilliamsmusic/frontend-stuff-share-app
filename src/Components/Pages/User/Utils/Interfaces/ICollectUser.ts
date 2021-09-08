@@ -1,3 +1,7 @@
+import {IForm} from "../../../../../Utils/basicInterfaces";
+
+type StockImage = "/stock/ssa.jpg";
+
 export interface IPatchCollect {
   collectId: number;
   collectForm: string;
@@ -6,25 +10,19 @@ export interface IPatchCollect {
 
 export interface ICreateCollect {
   title: string;
+  // image: StockImage;
 }
 
-export interface IGetCollect {
-  collectId: number;
-}
-export interface IDeleteCollect {
-  collectId: number;
-}
 export interface ICollectForm {
-  collectId: number;
+  id: number;
   collectForm: Array<IForm>;
-}
-
-export interface IForm {
-  field: string;
-  value: string;
 }
 
 export interface IUpdateCollectImage {
   collectId: number;
   image: string;
+}
+
+export interface IImageRes {
+  path: string | null;
 }

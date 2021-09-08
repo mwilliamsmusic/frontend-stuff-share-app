@@ -22,3 +22,7 @@ export interface ILineBreak {
   width: string;
   bgImage?: Color;
 }
+
+export interface IGradientBorder {
+  maxWidth: string;
+}

@@ -14,16 +14,16 @@ import {useAppSelector} from "../../../../../../Utils/Redux/ReduxHook";
 // Displays all of the user's collections
 function AllCollectsView() {
   const collectAll = useAppSelector((state) => state.allCollectsUser);
-  //const dispatch = useAppDispatch();
+
   const collectItems =
     collectAll &&
     Object.values(collectAll).map((collect: any) => (
-      <li key={collect.collectId}>
-        <LinkBtn to={`${itemsUserCollect}${collect.collectId}`}>
+      <li key={collect.id}>
+        <LinkBtn to={`${itemsUserCollect}${collect.id}`}>
           <ListContainer>
             <GridImage>
               <img
-                src={`${process.env.REACT_APP_IMAGE_BACKEND}${collect.image}`}
+                src={`${process.env.REACT_APP_IMAGE_BACKEND}${collect.imagePath}`}
               />
             </GridImage>
 

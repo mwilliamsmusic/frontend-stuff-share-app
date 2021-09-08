@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {FormEvent, Fragment, useState} from "react";
 import {
   DisplayImage,
   Spacer,
@@ -9,23 +9,23 @@ import {BLUE} from "../../../../../../../CSS/GlobalCSS/typesGlobalCSS";
 import {useAppSelector} from "../../../../../../../Utils/Redux/ReduxHook";
 
 interface Props {
-  uploadItemImage: (e: React.FormEvent<HTMLFormElement>, file: any) => void;
+  uploadItemImage: (e: FormEvent, file: any) => void;
 }
 function ItemImageView(props: Props) {
   const [selectedFile, setSelectedFile] = useState<any>(null);
-  const itemInfo = useAppSelector((state) => state.itemUser);
+  const item = useAppSelector((state) => state.itemUser);
 
-  const imgURL = `${process.env.REACT_APP_IMAGE_BACKEND}/stock/ssa.jpg`;
+  const imgURL = `${process.env.REACT_APP_IMAGE_BACKEND}${item.imagePath}`;
   return (
     <Fragment>
-      <h2>Edit {itemInfo.title} Image</h2>
+      <h2>Edit {item.title} Image</h2>
       <StdForm
         onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
           props.uploadItemImage(e, selectedFile)
         }
       >
         <DisplayImage width="400px">
-          <img src={imgURL} alt={itemInfo.title}></img>
+          <img src={imgURL} alt={item.title}></img>
         </DisplayImage>
 
         <Spacer height="25px" />

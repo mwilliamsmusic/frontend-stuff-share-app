@@ -1,19 +1,31 @@
-import {IKey} from "../../../../Utils/Components/ITGlobal";
+import {IForm} from "../../../../Utils/basicInterfaces";
 
-export function addField(form: object, key: string): string {
-  const addKey: IKey = {};
-  addKey[key] = "";
-  const newForm = {...form, ...addKey};
-  return JSON.stringify(newForm);
+export function addForm(
+  inputForm: Array<IForm>,
+  newField: string
+): Array<IForm> {
+  if (inputForm !== null) {
+    if (!inputForm.some((form) => form.field === newField)) {
+      const fieldObj: IForm = {field: newField, value: ""};
+      const updatedArray: Array<IForm> = [];
+      updatedArray.push(fieldObj);
+      const mergeState: Array<IForm> = [...inputForm, ...updatedArray];
+      return mergeState;
+    }
+  } else {
+    const fieldObj: IForm = {field: newField, value: ""};
+    const updatedArray: Array<IForm> = [];
+    updatedArray.push(fieldObj);
+    return updatedArray;
+  }
 }
 
-export function deleteField(form: any, deleteKey: string): string {
-  const objState: IKey = form;
-  const deleteObj = Object.keys(objState).reduce((object: IKey, key) => {
-    if (key !== deleteKey) {
-      object[key] = form[key];
-    }
-    return object;
-  }, {});
-  return JSON.stringify(deleteObj);
+export function deleteForm(
+  formArray: Array<IForm>,
+  deleteKey: string
+): Array<IForm> {
+  const deleteArray: Array<IForm> = formArray.filter(
+    (key) => key.field !== deleteKey
+  );
+  return deleteArray;
 }

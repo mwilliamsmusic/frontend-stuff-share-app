@@ -29,7 +29,7 @@ function CollectImageView(props: Props) {
       <StdForm onSubmit={(e) => props.uploadCollectImg(e, file)}>
         <DisplayImage width="400px">
           <img
-            src={`${process.env.REACT_APP_IMAGE_BACKEND}${collect.image}`}
+            src={`${process.env.REACT_APP_IMAGE_BACKEND}${collect.imagePath}`}
             alt={collect.title}
           ></img>
         </DisplayImage>

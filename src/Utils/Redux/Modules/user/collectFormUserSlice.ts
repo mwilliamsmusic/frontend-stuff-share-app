@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IForm} from "../../../../Components/Pages/User/Utils/Interfaces/ICollectUser";
+import {IForm} from "../../../basicInterfaces";
+
 import {RootState} from "../../store";
 
 const initialState: Array<IForm> = [];
@@ -9,7 +10,7 @@ export const collectFormUserSlice = createSlice({
   initialState,
   reducers: {
     updateCollectFormUser: (state, action: PayloadAction<Array<IForm>>) => {
-      return [...state, ...action.payload];
+      return action.payload;
     },
     clearCollectFormUser: (state) => {
       return (state = initialState);

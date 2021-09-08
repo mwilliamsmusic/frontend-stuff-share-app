@@ -1,14 +1,13 @@
 import React, {useState, useEffect, Fragment} from "react";
 import axios, {AxiosError, AxiosResponse} from "axios";
 import {
+  createCoolURL,
   getAllUserCollectsURL,
   postUserCollectURL,
 } from "../../../../../Utils/URL/apiURL";
 import {ICreateCollect} from "../../Utils/Interfaces/ICollectUser";
 import {getAllUser, postUser} from "../../Utils/axiosUserConfig";
 import CreateCollectView from "./CreateCollectView";
-
-//import {disableButton} from "../../../../../Utils/validation";
 import AllCollectsView from "./AllCollectsView";
 import {Spacer} from "../../../../../CSS/GlobalCSS/globalCSS";
 import {disableButton} from "../../../../../Utils/validation";
@@ -20,10 +19,7 @@ import {
   IAllCollectsUser,
   updateAllCollectsUser,
 } from "../../../../../Utils/Redux/Modules/user/allCollectsUserSlice";
-import {
-  ICollectTagsUser,
-  updateTagsCollectUser,
-} from "../../../../../Utils/Redux/Modules/user/tagsCollectUserSlice";
+import {IId} from "../../../../../Utils/basicInterfaces";
 
 function UserCollect() {
   const [collectTitle, setCollectTitle] = useState<string>("");
@@ -41,20 +37,24 @@ function UserCollect() {
       (err: AxiosError) => {}
     );
   }
+
   // Create title handler
   function createTitle(title: string) {
     setCollectTitle(title);
     setSubmitDisabled(disableButton(title));
   }
   // Create collect with title
-  function postCollect() {
+  async function postCollect() {
     const request: ICreateCollect = {
       title: collectTitle,
     };
-    axios(postUser(postUserCollectURL, request)).then(
-      (res: AxiosResponse) => {},
-      (err: AxiosError) => {}
-    );
+    try {
+      const createCollect = await axios(postUser(postUserCollectURL, request));
+      const data: IId = {
+        id: createCollect.data.collectId,
+      };
+      const createCool = await axios(postUser(createCoolURL, data));
+    } catch (err) {}
     setCollectTitle("");
   }
 

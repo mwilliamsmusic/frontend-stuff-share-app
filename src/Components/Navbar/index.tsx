@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import {CenterContent} from "../../CSS/GlobalCSS/globalCSS";
+import {CenterContent, SmallScreen} from "../../CSS/GlobalCSS/globalCSS";
 
 import {logLS} from "../../Utils/storageData";
 import NavbarAuthView from "./NavbarAuthView";

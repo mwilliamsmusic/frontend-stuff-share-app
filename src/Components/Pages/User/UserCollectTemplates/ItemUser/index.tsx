@@ -1,31 +1,33 @@
-import axios, {AxiosError, AxiosResponse} from "axios";
-import React, {SyntheticEvent, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {
-  CenterContent,
-  PageContainer,
-  Spacer,
-} from "../../../../../CSS/GlobalCSS/globalCSS";
-import {
-  IAllItemsUser,
-  updateAllItemsUser,
-} from "../../../../../Utils/Redux/Modules/user/allItemsUserSlice";
-import {updateItemFormUser} from "../../../../../Utils/Redux/Modules/user/itemFormUserSlice";
+import axios, {AxiosError, AxiosResponse} from "axios";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../../Utils/Redux/ReduxHook";
-import {usernameLS} from "../../../../../Utils/storageData";
+import {IForm, IId, ITag} from "../../../../../Utils/basicInterfaces";
+import {updateItemFormUser} from "../../../../../Utils/Redux/Modules/user/itemFormUserSlice";
+import {postUser} from "../../Utils/axiosUserConfig";
 import {
+  CenterContent,
+  LineBreak,
+  PageContainer,
+  Spacer,
+} from "../../../../../CSS/GlobalCSS/globalCSS";
+import {BLUE, GRADIENT} from "../../../../../CSS/GlobalCSS/typesGlobalCSS";
+import ItemTags from "./ItemEdit/ItemTags";
+import ItemEdit from "./ItemEdit";
+import {
+  IItemUser,
+  updateItemUser,
+} from "../../../../../Utils/Redux/Modules/user/itemUserSlice";
+import {
+  deleteUserItemURL,
+  getAllItemTagsURL,
   getUserItemURL,
-  imagePostURL,
-  updateItemFormURL,
 } from "../../../../../Utils/URL/apiURL";
-import {disableButton} from "../../../../../Utils/validation";
-import {patchUser, postImage, postUser} from "../../Utils/axiosUserConfig";
-import {IDeleteCollect, IForm} from "../../Utils/Interfaces/ICollectUser";
-import {IGetItem, IItemForm} from "../../Utils/Interfaces/IItemUser";
-import EditItemUserView from "./EditItemUserView";
+import {collectUserId} from "../../../../../Utils/URL/frontURL";
+import {updateTagsItemUser} from "../../../../../Utils/Redux/Modules/user/tagsItemUserSlice";
 
 interface RouteParams {
   id: string;
@@ -33,140 +35,75 @@ interface RouteParams {
 
 function ItemUser() {
   const {id} = useParams<RouteParams>();
-  const idString: string = id;
+  const idNumber: number = parseInt(id, 10);
 
-  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [newImageName, setNewImageName] = useState("");
 
-  const [newField, setNewField] = useState<string>("");
-  const [fieldDisabled, setFieldDisabled] = useState<boolean>(true);
-
-  const [valueField, setValueField] = useState<string>("");
-  const [valueDisabled, setValueDisabled] = useState<boolean>(true);
-
-  const itemForm = useAppSelector((state) => state.itemFormUser);
   const dispatch = useAppDispatch();
+  const item = useAppSelector((state) => state.itemUser);
 
-  // Update item Form
-  function updateItemForm(formObj: object) {
-    const data: IItemForm = {
-      itemId: parseInt(idString, 10),
-      itemForm: JSON.stringify(formObj),
+  // GET ONE for main collection info.
+  async function getItemInfo() {
+    const data: IId = {
+      id: idNumber,
     };
-    axios(patchUser(updateItemFormURL, data)).then(
+
+    // dispatch(updateItemFormUser([]));
+    try {
+      const itemInfo = await axios(postUser(getUserItemURL, data));
+      const item: IItemUser = itemInfo.data;
+      dispatch(updateItemUser(item));
+      const itemForm: Array<IForm> = JSON.parse(itemInfo.data.itemForm);
+      dispatch(updateItemFormUser(itemForm));
+    } catch (error) {}
+  }
+
+  function deleteItem() {
+    const data: IId = {
+      id: idNumber,
+    };
+    axios(postUser(deleteUserItemURL, data)).then(
       (res: AxiosResponse) => {},
       (err: AxiosError) => {}
     );
-  }
-
-  function uploadItemImage(e: React.FormEvent<HTMLFormElement>, file: any) {
-    //  e.preventDefault();
-    const formData = new FormData();
-    formData.append("imageName", usernameLS + idString);
-    formData.append("image", file);
-    formData.append("username", usernameLS);
-
-    axios(postImage(imagePostURL, formData)).then(
-      (res: AxiosResponse) => {},
-      (err: AxiosError) => {}
+    window.location.replace(
+      process.env.REACT_APP_FRONTEND + collectUserId + item.collectId
     );
   }
 
-  function getItem() {
-    const data: IGetItem = {
-      itemId: parseInt(idString, 10),
-    };
-    axios(postUser(getUserItemURL, data)).then(
-      (res: AxiosResponse) => {
-        const items: Array<IAllItemsUser> = res.data;
-        dispatch(updateAllItemsUser(items));
-
-        const itemForm: Array<IForm> = res.data.itemForm;
-        dispatch(updateItemFormUser(itemForm));
-      },
-      (err: AxiosError) => {}
-    );
-  }
-
-  function saveForm() {
-    const data: IItemForm = {
-      itemId: parseInt(idString, 10),
-      itemForm: JSON.stringify(itemForm),
-    };
-    axios(patchUser(updateItemFormURL, data)).then(
-      (res: AxiosResponse) => {},
-      (err: AxiosError) => {}
-    );
-  }
-
-  function fieldHandler(field: string) {
-    setFieldDisabled(disableButton(field));
-    setNewField(field);
-  }
-
-  function valueHandler(field: string) {
-    setValueDisabled(disableButton(field));
-    setValueField(field);
-  }
-
-  function addFieldState(event: SyntheticEvent) {
-    event.preventDefault();
-
-    if (!itemForm.some((form) => form.field === newField)) {
-      const fieldObj: IForm = {field: newField, value: ""};
-      const newArr: Array<IForm> = [];
-      newArr.push(fieldObj);
-      const mergeState: Array<IForm> = [...itemForm, ...newArr];
-      dispatch(updateItemFormUser(mergeState));
-    }
-    setNewField("");
-    // setNewField(null);
-    setFieldDisabled(false);
-    //addField(iFormView, newField);
-    // setIFormView(addField);
-  }
-
-  function updateFieldState(event: SyntheticEvent, field: string) {
-    event.preventDefault();
-    const stateArr: Array<IForm> = [...itemForm];
-    const objIndex = stateArr.findIndex((obj) => obj.field === field);
-    let obj = {field: field, value: valueField} as IForm;
-    stateArr.splice(objIndex, 1, obj);
-
-    dispatch(updateItemFormUser(stateArr));
-  }
-  function deleteFieldState(event: SyntheticEvent, deleteKey: string) {
-    event.preventDefault();
-    const someArray: Array<IForm> = itemForm;
-
-    const newArr: Array<IForm> = someArray.filter(
-      (key) => key.field !== deleteKey
-    );
-    dispatch(updateItemFormUser(newArr));
+  async function getAllTags() {
+    const data = {collectId: idNumber};
+    try {
+      const allTags = await axios(postUser(getAllItemTagsURL, data));
+      const itemTags: Array<ITag> = allTags.data;
+      dispatch(updateTagsItemUser(itemTags));
+    } catch (error) {}
   }
 
   useEffect(() => {
-    getItem();
+    getItemInfo();
+
+    getAllTags();
   }, []);
 
   return (
     <CenterContent>
       <PageContainer>
-        <EditItemUserView
-          valueField={valueField}
-          valueHandler={valueHandler}
-          saveForm={saveForm}
-          addFieldState={addFieldState}
-          deleteFieldState={deleteFieldState}
-          fieldHandler={fieldHandler}
-          fieldDisabled={fieldDisabled}
-          newField={newField}
-          updateFieldState={updateFieldState}
-          uploadItemImage={uploadItemImage}
-          isEdit={isEdit}
-          setIsEdit={setIsEdit}
-        />
+        <Spacer height="25px" />
+        <LineBreak bgColor={BLUE} width={"90%"} bgImage={GRADIENT} />
+        <Spacer height="25px" />
 
-        <Spacer height="50px" />
+        <ItemTags />
+
+        <Spacer height="25px" />
+        <LineBreak bgColor={BLUE} width={"90%"} bgImage={GRADIENT} />
+        <Spacer height="25px" />
+
+        <ItemEdit />
+
+        <Spacer height="25px" />
+        <LineBreak bgColor={BLUE} width={"90%"} />
+        <Spacer height="25px" />
       </PageContainer>
     </CenterContent>
   );

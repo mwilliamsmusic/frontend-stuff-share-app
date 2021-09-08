@@ -6,6 +6,9 @@ import userItem from "../Modules/user/itemUserSlice";
 import userCollectForm from "../Modules/user/collectFormUserSlice";
 import userItemForm from "../Modules/user/itemFormUserSlice";
 import userTagsCollect from "../Modules/user/tagsCollectUserSlice";
+import userTagsItem from "../Modules/user/tagsItemUserSlice";
+import infoCollect from "../Modules/collect/collectSlice";
+import infoItem from "../Modules/item/itemSlice";
 const store = configureStore({
   reducer: {
     allCollectsUser: userAllCollects,
@@ -15,6 +18,9 @@ const store = configureStore({
     collectFormUser: userCollectForm,
     itemFormUser: userItemForm,
     tagsCollectUser: userTagsCollect,
+    tagsItemUser: userTagsItem,
+    collect: infoCollect,
+    item: infoItem,
   },
 });
 

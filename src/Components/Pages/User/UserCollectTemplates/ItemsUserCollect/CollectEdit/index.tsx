@@ -1,18 +1,11 @@
 import axios from "axios";
-import React, {
-  Dispatch,
-  FormEvent,
-  Fragment,
-  SetStateAction,
-  SyntheticEvent,
-} from "react";
-import {Spacer} from "../../../../../../CSS/GlobalCSS/globalCSS";
+import React, {FormEvent, Fragment} from "react";
+import {LineBreak, Spacer} from "../../../../../../CSS/GlobalCSS/globalCSS";
+import {BLUE, GRADIENT} from "../../../../../../CSS/GlobalCSS/typesGlobalCSS";
 import {useAppSelector} from "../../../../../../Utils/Redux/ReduxHook";
-import {usernameLS} from "../../../../../../Utils/storageData";
 import {
   imagePostURL,
   patchUserCollectURL,
-  updateCollectForm,
 } from "../../../../../../Utils/URL/apiURL";
 import {
   COLLECT_ORIGIN,
@@ -20,47 +13,40 @@ import {
   patchUser,
   postImage,
 } from "../../../Utils/axiosUserConfig";
-import {ICollectForm} from "../../../Utils/Interfaces/ICollectUser";
+
 import CollectForm from "./CollectForm";
 import CollectImageView from "./CollectImageView";
 
 function CollectEdit() {
   const collect = useAppSelector((state) => state.collectUser);
 
-  function saveForm() {
-    const data: ICollectForm = {
-      collectId: collect.collectId,
-      collectForm: collect.collectForm,
-    };
-    axios(patchUser(updateCollectForm, data));
-    window.location.reload();
-  }
-
   async function uploadCollectImg(e: FormEvent, file: any) {
     e.preventDefault();
-    const newImageName = usernameLS + collect.title;
-    const trimName = newImageName.replace(/\s+/g, "");
     const imageData: FormData = imageFormData(
       file,
-      trimName,
-      collect.image,
+      collect.title,
+      collect.imagePath,
       COLLECT_ORIGIN
     );
     try {
       const imagePost = await axios(postImage(imagePostURL, imageData));
-    } catch (error) {}
-    try {
-      const data = {collectId: collect.collectId, image: trimName};
+      const data = {id: collect.id, imagePath: imagePost.data.path};
       const patch = await axios(patchUser(patchUserCollectURL, data));
     } catch (error) {}
+
     window.location.reload();
   }
 
   return (
     <Fragment>
-      <CollectImageView uploadCollectImg={uploadCollectImg} />
-      <Spacer height="50px" />
       <CollectForm />
+
+      <Spacer height="25px" />
+      <LineBreak bgColor={BLUE} width={"90%"} bgImage={GRADIENT} />
+      <Spacer height="25px" />
+
+      <CollectImageView uploadCollectImg={uploadCollectImg} />
+      <Spacer height="25px" />
     </Fragment>
   );
 }

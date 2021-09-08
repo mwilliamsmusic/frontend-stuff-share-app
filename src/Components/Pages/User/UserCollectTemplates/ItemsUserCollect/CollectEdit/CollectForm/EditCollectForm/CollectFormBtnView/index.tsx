@@ -1,5 +1,13 @@
-import React, {Dispatch, Fragment, SetStateAction, SyntheticEvent} from "react";
+import React, {
+  Dispatch,
+  FormEvent,
+  Fragment,
+  SetStateAction,
+  SyntheticEvent,
+} from "react";
 import {
+  GradientBoarder,
+  Spacer,
   StdBtn,
   UnorderListStyle,
 } from "../../../../../../../../../CSS/GlobalCSS/globalCSS";
@@ -10,42 +18,52 @@ import {
 } from "../../../../../../../../../CSS/GlobalCSS/typesGlobalCSS";
 import {useAppSelector} from "../../../../../../../../../Utils/Redux/ReduxHook";
 import {
-  FieldFormArea,
-  FormGrid,
-  ViewFormArea,
+  EditFormContainer,
+  EditFormGrid,
+  FieldEditFormArea,
+  ViewEditFormArea,
 } from "../../../../../../Utils/userCSS";
 
 interface Props {
   deleteFieldState: (event: SyntheticEvent, field: string) => void;
   setIsEdit: Dispatch<SetStateAction<boolean>>;
+  saveForm: (event: FormEvent) => void;
 }
+
 function CollectFormBtnView(props: Props) {
   const collectForm = useAppSelector((state) => state.collectFormUser);
   const formList =
     collectForm &&
     Object.values(collectForm).map((form: any) => (
-      <UnorderListStyle>
-        <li key={form.name}>
-          <FieldFormArea>{form.name}</FieldFormArea>
-          <ViewFormArea>
+      <Fragment>
+        <EditFormGrid>
+          <FieldEditFormArea>{form.field}</FieldEditFormArea>
+          <ViewEditFormArea>
             <StdBtn
               bgColor={RED}
               onClick={(event) => {
-                props.deleteFieldState(event, form.name);
+                props.deleteFieldState(event, form.field);
               }}
             >
               Delete Field
             </StdBtn>
-          </ViewFormArea>
-        </li>
-      </UnorderListStyle>
+          </ViewEditFormArea>
+        </EditFormGrid>
+        <Spacer height="5px" />
+      </Fragment>
     ));
   return (
-    <FormGrid>
-      <ul> {formList}</ul>
-      <StdBtn bgColor={GREEN}>Save Form</StdBtn>
-      <StdBtn bgColor={BLUE}>Close</StdBtn>
-    </FormGrid>
+    <Fragment>
+      <EditFormContainer>
+        <UnorderListStyle> {formList} </UnorderListStyle>
+      </EditFormContainer>
+      <StdBtn bgColor={GREEN} onClick={(event) => props.saveForm(event)}>
+        Save Form
+      </StdBtn>
+      <StdBtn bgColor={BLUE} onClick={() => props.setIsEdit(false)}>
+        Close
+      </StdBtn>
+    </Fragment>
   );
 }
 

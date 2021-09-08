@@ -1,6 +1,10 @@
 import {Link} from "react-router-dom";
 import styled from "styled-components";
-import {WHITE} from "../../../../CSS/GlobalCSS/typesGlobalCSS";
+import {
+  BLUE,
+  BORDER_RADIUS,
+  WHITE,
+} from "../../../../CSS/GlobalCSS/typesGlobalCSS";
 
 // Individual collect/item link
 export const CollectContainer = styled.div`
@@ -71,27 +75,32 @@ export const TransOverlay = styled.div`
   left: 0;
 `;
 
-export const FormGrid = styled.div`
+export const EditFormGrid = styled.div`
+  background: white;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
   grid-template-areas: "field view";
   align-items: center;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+  border-radius: ${BORDER_RADIUS};
+  // border: 2px solid #2c4ef5;
 `;
 
-export const FieldFormArea = styled.div`
+export const FieldEditFormArea = styled.div`
   grid-area: field;
 `;
 
-export const ViewFormArea = styled.div`
+export const ViewEditFormArea = styled.div`
   grid-area: view;
 `;
 
-export const FormContainer = styled.div`
-  background-color: ${WHITE};
-  border-radius: "20px";
-  width: 50%;
+export const EditFormContainer = styled.div`
+  background: ${WHITE};
+  border-radius: ${BORDER_RADIUS};
+  width: 60%;
   padding: 10px;
   text-align: center;
   margin: 0;
+  border: 2px solid ${BLUE};
 `;

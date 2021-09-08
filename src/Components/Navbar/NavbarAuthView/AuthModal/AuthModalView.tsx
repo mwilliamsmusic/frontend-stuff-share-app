@@ -2,7 +2,7 @@ import React from "react";
 import {StdBtn} from "../../../../CSS/GlobalCSS/globalCSS";
 import {BLUE, PINK} from "../../../../CSS/GlobalCSS/typesGlobalCSS";
 
-import {userCollect} from "../../../../Utils/URL/frontURL";
+import {collectUser} from "../../../../Utils/URL/frontURL";
 import {
   AuthModalContainer,
   AuthLinkStyle,
@@ -18,7 +18,7 @@ function AuthModalView(props: Props) {
   return (
     <AuthModalContainer>
       <LinkBox>
-        <AuthLinkStyle to={userCollect}>My Collections</AuthLinkStyle>
+        <AuthLinkStyle to={collectUser}>My Collections</AuthLinkStyle>
         <ModalTextSpacer />
 
         <AuthLinkStyle to="/u/me">Me</AuthLinkStyle>

@@ -1,21 +1,23 @@
 import axios from "axios";
 import React, {
   Dispatch,
+  FormEvent,
   Fragment,
   SetStateAction,
   SyntheticEvent,
   useState,
 } from "react";
+import {IForm} from "../../../../../../../../Utils/basicInterfaces";
 import {updateCollectFormUser} from "../../../../../../../../Utils/Redux/Modules/user/collectFormUserSlice";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../../../../../Utils/Redux/ReduxHook";
-import {updateCollectForm} from "../../../../../../../../Utils/URL/apiURL";
+import {updateCollectFormURL} from "../../../../../../../../Utils/URL/apiURL";
+
 import {disableButton} from "../../../../../../../../Utils/validation";
 import {patchUser} from "../../../../../Utils/axiosUserConfig";
-import {deleteField} from "../../../../../Utils/editForm";
-import {IForm} from "../../../../../Utils/Interfaces/ICollectUser";
+import {addForm, deleteForm} from "../../../../../Utils/editForm";
 import AddCollectFieldView from "./AddCollectFieldView";
 import CollectFormBtnView from "./CollectFormBtnView";
 
@@ -30,53 +32,38 @@ function EditCollectForm(props: Props) {
   const collectForm = useAppSelector((state) => state.collectFormUser);
   const collect = useAppSelector((state) => state.collectUser);
 
-  function saveForm() {
+  async function saveForm(event: FormEvent) {
+    event.preventDefault();
     const data = {
-      collectId: collect.collectId,
+      id: collect.id,
       collectForm: JSON.stringify(collectForm),
     };
     try {
-      axios(patchUser(updateCollectForm, data));
+      const form = await axios(patchUser(updateCollectFormURL, data));
     } catch (error) {}
+
+    window.location.reload();
   }
 
   function fieldHandler(field: string) {
-    setFieldDisabled(disableButton(field));
     setNewField(field);
+    setFieldDisabled(disableButton(field));
   }
 
   function addFieldState(event: SyntheticEvent) {
     event.preventDefault();
+    // Keep newField to prevent state duplicates and mutations
+    const collectArray: Array<IForm> = collectForm;
+    dispatch(updateCollectFormUser(addForm(collectArray, newField)));
 
-    if (!collectForm.some((form) => form.field === newField)) {
-      const fieldObj: IForm = {field: newField, value: ""};
-      const newArr: Array<IForm> = [];
-      newArr.push(fieldObj);
-      const mergeState: Array<IForm> = [...collectForm, ...newArr];
-      dispatch(updateCollectFormUser(mergeState));
-    }
     setNewField("");
     setFieldDisabled(false);
   }
-  /*
-  function updateFieldState(event: SyntheticEvent, field: string) {
-    event.preventDefault();
-    const stateArr: Array<IForm> = [...collectForm];
-    const objIndex = stateArr.findIndex((obj) => obj.field === field);
-    let obj = {field: field, value: valueField} as IForm;
-    stateArr.splice(objIndex, 1, obj);
 
-    dispatch();
-  }
-  */
   function deleteFieldState(event: SyntheticEvent, deleteKey: string) {
     event.preventDefault();
-    const someArray: Array<IForm> = collectForm;
-
-    const newArr: Array<IForm> = someArray.filter(
-      (key) => key.field !== deleteKey
-    );
-    dispatch(updateCollectFormUser(newArr));
+    const collectArray: Array<IForm> = collectForm;
+    dispatch(updateCollectFormUser(deleteForm(collectArray, deleteKey)));
   }
 
   return (
@@ -90,6 +77,7 @@ function EditCollectForm(props: Props) {
       <CollectFormBtnView
         deleteFieldState={deleteFieldState}
         setIsEdit={props.setIsEdit}
+        saveForm={saveForm}
       />
     </Fragment>
   );

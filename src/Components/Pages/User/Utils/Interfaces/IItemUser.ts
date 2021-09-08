@@ -1,22 +1,14 @@
 export interface IPatchItem {
-  itemId: number;
+  id: number;
   itemForm: string;
-}
-
-export interface IGetItem {
-  itemId: number;
-}
-
-export interface IGetAllItem {
-  collectId: number;
 }
 
 export interface IPostItem {
   collectId: number;
   title: string;
-  itemForm: string;
+  itemForm: any;
 }
 export interface IItemForm {
-  itemId: number;
+  id: number;
   itemForm: string;
 }
