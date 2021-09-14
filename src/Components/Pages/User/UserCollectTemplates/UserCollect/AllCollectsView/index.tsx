@@ -10,6 +10,13 @@ import {
   PageContainer,
 } from "../../../../../../CSS/GlobalCSS/globalCSS";
 import {useAppSelector} from "../../../../../../Utils/Redux/ReduxHook";
+import {
+  DataArea,
+  GridStandardList,
+  ImageArea,
+  StandardList,
+  StandardListGridBtn,
+} from "../../../../../../CSS/listsCSS";
 
 // Displays all of the user's collections
 function AllCollectsView() {
@@ -19,17 +26,16 @@ function AllCollectsView() {
     collectAll &&
     Object.values(collectAll).map((collect: any) => (
       <li key={collect.id}>
-        <LinkBtn to={`${itemsUserCollect}${collect.id}`}>
-          <ListContainer>
-            <GridImage>
-              <img
-                src={`${process.env.REACT_APP_IMAGE_BACKEND}${collect.imagePath}`}
-              />
-            </GridImage>
-
+        <StandardListGridBtn to={`${itemsUserCollect}${collect.id}`}>
+          <ImageArea>
+            <img
+              src={`${process.env.REACT_APP_IMAGE_BACKEND}${collect.imagePath}`}
+            />
+          </ImageArea>
+          <DataArea>
             <b> {collect.title}</b>
-          </ListContainer>
-        </LinkBtn>
+          </DataArea>
+        </StandardListGridBtn>
       </li>
     ));
   /*
@@ -39,7 +45,11 @@ function AllCollectsView() {
     <CenterContent>
       <PageContainer>
         <h2>My Collections</h2>
-        <ul>{collectItems}</ul>
+        <StandardList>
+          <ul>
+            <GridStandardList>{collectItems}</GridStandardList>
+          </ul>
+        </StandardList>
       </PageContainer>
     </CenterContent>
   );

@@ -1,5 +1,6 @@
 import React from "react";
-import {StdBtn} from "../../../../CSS/GlobalCSS/globalCSS";
+import {StdBtn} from "../../../../CSS/buttonsCSS";
+
 import {BLUE, PINK} from "../../../../CSS/GlobalCSS/typesGlobalCSS";
 
 import {collectUser} from "../../../../Utils/URL/frontURL";
@@ -24,7 +25,7 @@ function AuthModalView(props: Props) {
         <AuthLinkStyle to="/u/me">Me</AuthLinkStyle>
         <ModalTextSpacer />
 
-        <StdBtn bgColor={BLUE} onClick={props.logout}>
+        <StdBtn backgroundColor={BLUE} onClick={props.logout}>
           Sign Out
         </StdBtn>
       </LinkBox>

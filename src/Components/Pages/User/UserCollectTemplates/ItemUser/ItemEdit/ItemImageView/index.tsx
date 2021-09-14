@@ -1,8 +1,8 @@
 import React, {FormEvent, Fragment, useState} from "react";
+import {StdBtn} from "../../../../../../../CSS/buttonsCSS";
 import {
   DisplayImage,
   Spacer,
-  StdBtn,
   StdForm,
 } from "../../../../../../../CSS/GlobalCSS/globalCSS";
 import {BLUE} from "../../../../../../../CSS/GlobalCSS/typesGlobalCSS";
@@ -37,7 +37,7 @@ function ItemImageView(props: Props) {
             onChange={(e) => setSelectedFile(e.target.files[0])}
           />
 
-          <StdBtn bgColor={BLUE} type="submit">
+          <StdBtn backgroundColor={BLUE} type="submit">
             Upload
           </StdBtn>
         </label>

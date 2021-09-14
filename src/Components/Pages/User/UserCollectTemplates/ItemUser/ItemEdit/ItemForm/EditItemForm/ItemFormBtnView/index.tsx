@@ -4,10 +4,8 @@ import React, {
   SetStateAction,
   SyntheticEvent,
 } from "react";
-import {
-  StdBtn,
-  UnorderListStyle,
-} from "../../../../../../../../../CSS/GlobalCSS/globalCSS";
+import {StdBtn} from "../../../../../../../../../CSS/buttonsCSS";
+import {UnorderListStyle} from "../../../../../../../../../CSS/GlobalCSS/globalCSS";
 import {
   BLUE,
   GREEN,
@@ -36,7 +34,7 @@ function ItemFormBtnView(props: Props) {
           <FieldEditFormArea>{form.field}</FieldEditFormArea>
           <ViewEditFormArea>
             <StdBtn
-              bgColor={RED}
+              backgroundColor={RED}
               onClick={(event) => {
                 props.deleteFieldState(event, form.field);
               }}
@@ -50,10 +48,13 @@ function ItemFormBtnView(props: Props) {
   return (
     <EditFormGrid>
       <ul> {formList}</ul>
-      <StdBtn bgColor={GREEN} onClick={(event) => props.saveForm(event)}>
+      <StdBtn
+        backgroundColor={GREEN}
+        onClick={(event) => props.saveForm(event)}
+      >
         Save Form
       </StdBtn>
-      <StdBtn bgColor={BLUE} onClick={() => props.setIsEdit(false)}>
+      <StdBtn backgroundColor={BLUE} onClick={() => props.setIsEdit(false)}>
         Close
       </StdBtn>
     </EditFormGrid>

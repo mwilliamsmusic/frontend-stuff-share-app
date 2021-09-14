@@ -1,19 +1,13 @@
 import axios, {AxiosError, AxiosResponse} from "axios";
 import React, {FormEvent, Fragment, useState} from "react";
+import {StdBtn} from "../../../../../../../CSS/buttonsCSS";
 import {
   DisplayImage,
   Spacer,
-  StdBtn,
   StdForm,
 } from "../../../../../../../CSS/GlobalCSS/globalCSS";
 import {BLUE, PINK} from "../../../../../../../CSS/GlobalCSS/typesGlobalCSS";
 import {useAppSelector} from "../../../../../../../Utils/Redux/ReduxHook";
-
-import {
-  COLLECT_ORIGIN,
-  imageFormData,
-  postImage,
-} from "../../../../Utils/axiosUserConfig";
 
 interface Props {
   uploadCollectImg: (e: FormEvent, file: any) => void;
@@ -43,7 +37,7 @@ function CollectImageView(props: Props) {
             onChange={(e) => setFile(e.target.files[0])}
           />
 
-          <StdBtn bgColor={BLUE} type="submit">
+          <StdBtn backgroundColor={BLUE} type="submit">
             Upload
           </StdBtn>
         </label>

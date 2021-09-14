@@ -1,11 +1,16 @@
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React, {Fragment} from "react";
-import {
-  StdBtn,
-  UnorderListStyle,
-} from "../../../../../../CSS/GlobalCSS/globalCSS";
+import {StdBtn} from "../../../../../../CSS/buttonsCSS";
+import {UnorderListStyle} from "../../../../../../CSS/GlobalCSS/globalCSS";
 import {RED} from "../../../../../../CSS/GlobalCSS/typesGlobalCSS";
+import {
+  DataArea,
+  GridStandardList,
+  ImageArea,
+  StandardList,
+  StandardListGridBtn,
+} from "../../../../../../CSS/listsCSS";
 import {useAppSelector} from "../../../../../../Utils/Redux/ReduxHook";
 import {itemUser} from "../../../../../../Utils/URL/frontURL";
 import {CollectContainer, LinkStyle, ListStyle} from "../../../Utils/userCSS";
@@ -20,22 +25,29 @@ function AllItemsView(props: Props) {
   const itemsList =
     allItems &&
     Object.values(allItems).map((item: any) => (
-      <UnorderListStyle>
-        <li key={item.id}>
-          <CollectContainer>
-            <LinkStyle to={`${itemUser}${item.id}`}>{item.title}</LinkStyle>
-          </CollectContainer>
-        </li>
-      </UnorderListStyle>
+      <li key={item.id}>
+        <StandardListGridBtn to={`${itemUser}${item.id}`}>
+          <ImageArea>
+            <img
+              src={`${process.env.REACT_APP_IMAGE_BACKEND}${item.imagePath}`}
+            />
+          </ImageArea>
+          <DataArea>{item.title}</DataArea>
+        </StandardListGridBtn>
+      </li>
     ));
 
   return (
     <Fragment>
       <h2> {collectInfo.title} Collection</h2>
-      <StdBtn bgColor={RED} onClick={props.deleteCollection}>
+      <StdBtn backgroundColor={RED} onClick={props.deleteCollection}>
         <FontAwesomeIcon icon={faTrashAlt} size="1x" />`{` Delete Collection`}
       </StdBtn>
-      <ListStyle> {itemsList}</ListStyle>
+      <StandardList>
+        <ul>
+          <GridStandardList>{itemsList}</GridStandardList>
+        </ul>
+      </StandardList>
     </Fragment>
   );
 }

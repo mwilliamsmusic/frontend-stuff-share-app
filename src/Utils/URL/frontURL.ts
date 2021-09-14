@@ -7,12 +7,17 @@ type MainURL = "/main/collect/";
 type AuthURL = "/signin/" | "/signup/";
 type IdURL = "/usercollection/all/items/:id" | "/useritem/:id/";
 
+type CollectURL = "/collections/:username";
+
 // Auth
 export const signUp: AuthURL = "/signup/";
 export const signIn: AuthURL = "/signin/";
 
 // Main
 export const mainCollect: MainURL = "/main/collect/";
+
+// Collection
+export const usernameCollects: CollectURL = "/collections/:username";
 
 // User
 export const collectUser: UserURL = "/user/all/collection/";

@@ -16,6 +16,7 @@ import {
   signIn,
   signUp,
   userMe,
+  usernameCollects,
 } from "./Utils/URL/frontURL";
 import ItemUser from "./Components/Pages/User/UserCollectTemplates/ItemUser";
 import {
@@ -25,6 +26,7 @@ import {
   Spacer,
 } from "./CSS/GlobalCSS/globalCSS";
 import NavbarMobile from "./Components/Mobile/NavbarMobile";
+import Collect from "./Components/Pages/CollectTemplates/Collect";
 
 function App() {
   return (
@@ -43,6 +45,8 @@ function App() {
       <Switch>
         <Route path={signIn} component={SignIn} />
         <Route path={signUp} component={SignUp} />
+
+        <Route path={usernameCollects} component={Collect} />
 
         <Route path={mainCollect} component={CollectMain} />
 

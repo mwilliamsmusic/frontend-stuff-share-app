@@ -1,8 +1,6 @@
 import React, {FormEvent} from "react";
-import {
-  StdBtn,
-  StdForm,
-} from "../../../../../../../../../CSS/GlobalCSS/globalCSS";
+import {StdBtn} from "../../../../../../../../../CSS/buttonsCSS";
+import {StdForm} from "../../../../../../../../../CSS/GlobalCSS/globalCSS";
 import {PINK} from "../../../../../../../../../CSS/GlobalCSS/typesGlobalCSS";
 
 interface Props {
@@ -31,7 +29,11 @@ function AddCollectFieldView(props: Props) {
         />
       </label>
 
-      <StdBtn bgColor={PINK} type="submit" disabled={props.fieldDisabled}>
+      <StdBtn
+        backgroundColor={PINK}
+        type="submit"
+        disabled={props.fieldDisabled}
+      >
         Add
       </StdBtn>
     </StdForm>

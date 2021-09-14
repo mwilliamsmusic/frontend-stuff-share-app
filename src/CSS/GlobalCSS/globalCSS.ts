@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import {
+  IBackgroundColor,
   IDisplayImage,
   IGradientBorder,
   ILineBreak,
   IResponsePrompt,
   ISpacer,
-  IStdBtn,
 } from "./IGlobalCSS";
 import {BORDER_RADIUS, GRADIENT} from "./typesGlobalCSS";
 import breakpoints from "../breakpoints";
@@ -45,7 +45,7 @@ export const PageContainer = styled.div`
   color: black;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
   border: 2px solid #2c4ef5;
-
+  box-sizing: border-box;
   ul {
     list-style-type: none;
     margin: 0;
@@ -72,30 +72,6 @@ export const UnorderListStyle = styled.ul`
 
 export const ListBtn = styled.button`
   color: #2c4ef5;
-`;
-
-export const StdBtn = styled.button<IStdBtn>`
-  border-radius: 4px;
-  background-color: ${(p) => p.bgColor};
-  color: white;
-  margin: 5px;
-  padding: 5px;
-  text-align: center;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0),
-    rgba(0, 0, 0, 0.05) 90%
-  );
-  :hover {
-    transition: box-shadow 0.2s ease-in;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
-  }
-  :disabled {
-    transition: opacity 0.2s;
-    background-color: darkgrey;
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
 `;
 
 export const StdForm = styled.form`
@@ -132,6 +108,7 @@ export const ResStyle = styled.div<IResponsePrompt>`
 `;
 
 export const LineBreak = styled.div<ILineBreak>`
+  box-sizing: border-box;
   background-color: ${(p) => p.bgColor};
   width: ${(p) => p.width};
   height: 1px;

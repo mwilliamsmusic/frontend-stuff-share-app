@@ -9,6 +9,9 @@ import userTagsCollect from "../Modules/user/tagsCollectUserSlice";
 import userTagsItem from "../Modules/user/tagsItemUserSlice";
 import infoCollect from "../Modules/collect/collectSlice";
 import infoItem from "../Modules/item/itemSlice";
+import infoAllCollects from "../Modules/collect/allCollectsSlice";
+import infoAllItems from "../Modules/item/allItemsSlice";
+
 const store = configureStore({
   reducer: {
     allCollectsUser: userAllCollects,
@@ -21,6 +24,8 @@ const store = configureStore({
     tagsItemUser: userTagsItem,
     collect: infoCollect,
     item: infoItem,
+    allCollects: infoAllCollects,
+    allItems: infoAllItems,
   },
 });
 

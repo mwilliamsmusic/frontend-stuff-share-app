@@ -1,8 +1,8 @@
 import React, {useState} from "react";
+import {StdBtn} from "../../../../../../CSS/buttonsCSS";
 import {
   CenterContent,
   PageContainer,
-  StdBtn,
   StdForm,
 } from "../../../../../../CSS/GlobalCSS/globalCSS";
 import {BLUE, PINK} from "../../../../../../CSS/GlobalCSS/typesGlobalCSS";
@@ -29,7 +29,7 @@ function CreateCollectView(props: Props) {
               onChange={(e) => props.createTitle(e.target.value)}
             />
             <StdBtn
-              bgColor={BLUE}
+              backgroundColor={BLUE}
               type="submit"
               disabled={props.submitDisabled}
             >

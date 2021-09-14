@@ -47,6 +47,7 @@ export const getAllItemTagsURL = `${process.env.REACT_APP_USER_BACKEND}/tag/item
 export const addItemTagURL = `${process.env.REACT_APP_USER_BACKEND}/tag/item/ait`;
 export const removeItemTagURL = `${process.env.REACT_APP_USER_BACKEND}/tag/item/rit`;
 
+// Query Server
 // Collect
 export const allCollectsUsernameURL = `${process.env.REACT_APP_QUERY_BACKEND}/query/collect/name`;
 

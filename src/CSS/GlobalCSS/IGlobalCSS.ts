@@ -1,7 +1,7 @@
 import {Color} from "./typesGlobalCSS";
 
-export interface IStdBtn {
-  bgColor: Color;
+export interface IBackgroundColor {
+  backgroundColor: Color;
 }
 
 export interface ISpacer {

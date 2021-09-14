@@ -1,15 +1,6 @@
-import React, {
-  Dispatch,
-  Fragment,
-  SetStateAction,
-  SyntheticEvent,
-  useState,
-} from "react";
-import {
-  CenterContent,
-  PageContainer,
-  StdBtn,
-} from "../../../../../../../CSS/GlobalCSS/globalCSS";
+import React, {Fragment, useState} from "react";
+import {StdBtn} from "../../../../../../../CSS/buttonsCSS";
+
 import {BLUE, PINK} from "../../../../../../../CSS/GlobalCSS/typesGlobalCSS";
 import {useAppSelector} from "../../../../../../../Utils/Redux/ReduxHook";
 import EditCollectForm from "./EditCollectForm";
@@ -24,7 +15,7 @@ function CollectForm() {
       {isEdit ? (
         <EditCollectForm setIsEdit={setIsEdit} />
       ) : (
-        <StdBtn bgColor={BLUE} onClick={() => setIsEdit(true)}>
+        <StdBtn backgroundColor={BLUE} onClick={() => setIsEdit(true)}>
           Collect Form
         </StdBtn>
       )}

@@ -1,5 +1,6 @@
 import React, {FormEvent, Fragment} from "react";
-import {StdBtn, StdForm} from "../../../../../../CSS/GlobalCSS/globalCSS";
+import {StdBtn} from "../../../../../../CSS/buttonsCSS";
+import {StdForm} from "../../../../../../CSS/GlobalCSS/globalCSS";
 import {BLUE, PINK} from "../../../../../../CSS/GlobalCSS/typesGlobalCSS";
 import {useAppSelector} from "../../../../../../Utils/Redux/ReduxHook";
 
@@ -24,7 +25,11 @@ function AddItemView(props: Props) {
             placeholder="Enter Item Title"
             onChange={(e) => props.itemHandler(e.target.value)}
           />
-          <StdBtn bgColor={BLUE} type="submit" disabled={props.itemDisable}>
+          <StdBtn
+            backgroundColor={BLUE}
+            type="submit"
+            disabled={props.itemDisable}
+          >
             Create
           </StdBtn>
         </label>

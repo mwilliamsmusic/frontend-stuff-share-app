@@ -17,4 +17,4 @@ export type Color =
   | "rgb(244,244,244,1)"
   | `rgba(244, 43, 75, 1) 40%, rgba(244, 43, 75, 0.8), rgba(244, 43, 75, 0.5), rgba(44, 78, 245, 0.3)`;
 
-export const BORDER_RADIUS = "8px";
+export const BORDER_RADIUS = "5px";
