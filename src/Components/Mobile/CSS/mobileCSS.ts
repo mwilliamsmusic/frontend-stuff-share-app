@@ -23,7 +23,7 @@ export const MenuGridItemMobile = styled.div`
 export const SearchMobile = styled.div`
   height: 25px;
   width: 100%;
-  background-color: black;
+  background-color: ${BLUE};
   color: ${WHITE};
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8);
   input {

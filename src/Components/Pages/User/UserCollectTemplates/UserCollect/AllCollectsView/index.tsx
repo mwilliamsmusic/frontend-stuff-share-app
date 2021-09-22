@@ -1,11 +1,6 @@
 import React from "react";
 import {itemsUserCollect} from "../../../../../../Utils/URL/frontURL";
 import {
-  GridImage,
-  LinkBtn,
-  ListContainer,
-} from "../../../../../../CSS/listsItems";
-import {
   CenterContent,
   PageContainer,
 } from "../../../../../../CSS/GlobalCSS/globalCSS";

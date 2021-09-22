@@ -5,12 +5,10 @@ import {RootState} from "../../store";
 
 export interface IAllItems {
   id: number | null;
-  collectId: number | null;
-  userId: number | null;
   title: string | null;
-  itemForm: Array<IForm> | null;
-  status: string | null;
   imagePath: string | null;
+  status: string | null;
+  coolValue: number;
 }
 
 const initialState: Array<IAllItems> = [];

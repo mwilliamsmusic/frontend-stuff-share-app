@@ -7,7 +7,7 @@ interface Props {
 function ImagePathView(props: Props) {
   return (
     <Fragment>
-      <DisplayImage width="500px"></DisplayImage>
+      <DisplayImage width="200px"></DisplayImage>
       <img
         src={`${process.env.REACT_APP_IMAGE_BACKEND}${props.imagePath}`}
       ></img>

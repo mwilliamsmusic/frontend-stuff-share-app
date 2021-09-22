@@ -1,5 +1,3 @@
-import {faGlasses} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React from "react";
 
 import {CenterContent, Spacer} from "../../../../../../CSS/GlobalCSS/globalCSS";
@@ -18,13 +16,14 @@ function CollectionsView() {
   const collections =
     allCollects &&
     Object.values(allCollects).map((collect: IAllCollects) => (
-      <li key={collect.title}>
-        <StandardListGridBtn to="">
+      <li key={collect.id}>
+        <StandardListGridBtn to={`/collection/${collect.id}`}>
           <ImageArea>
             <img
               src={`${process.env.REACT_APP_IMAGE_BACKEND}${collect.imagePath}`}
             />
           </ImageArea>
+          <Spacer height="5px" />
           <DataArea>
             <b> {collect.title}</b>
             <Spacer height="5px" />

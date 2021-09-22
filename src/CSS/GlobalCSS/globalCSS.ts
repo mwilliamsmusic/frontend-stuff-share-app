@@ -7,7 +7,7 @@ import {
   IResponsePrompt,
   ISpacer,
 } from "./IGlobalCSS";
-import {BORDER_RADIUS, GRADIENT} from "./typesGlobalCSS";
+import {BORDER_RADIUS, GRADIENT, WHITE} from "./typesGlobalCSS";
 import breakpoints from "../breakpoints";
 
 export const GradientBackground = styled.div`
@@ -31,6 +31,7 @@ export const CenterContent = styled.div`
 
 // Main page content container
 export const PageContainer = styled.div`
+  background-color: ${WHITE};
   border-radius: ${BORDER_RADIUS};
   display: flex;
   justify-content: center;
@@ -40,7 +41,7 @@ export const PageContainer = styled.div`
   left: 0;
   top: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.9);
+  padding: 5px;
   width: 80%;
   color: black;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
@@ -49,6 +50,11 @@ export const PageContainer = styled.div`
   ul {
     list-style-type: none;
     margin: 0;
+    padding: 0;
+  }
+
+  @media only screen and (min-width: 768px) {
+    background-color: rgba(255, 255, 255, 0.9);
   }
 `;
 
@@ -152,5 +158,29 @@ export const LargeScreen = styled.div`
 export const SmallScreen = styled.div`
   @media only screen and (min-width: 769px) {
     display: none;
+  }
+`;
+
+export const TitleStyle = styled.div`
+  text-transform: capitalize;
+  text-align: center;
+`;
+
+export const ImagePathStyle = styled.div`
+  img {
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 5px;
+    display: block;
+  }
+  @media only screen and (min-width: 769px) {
+    img {
+      width: 500px;
+      height: auto;
+      object-fit: contain;
+      border-radius: 5px;
+      display: block;
+    }
   }
 `;

@@ -67,7 +67,7 @@ export const ImageArea = styled.div`
 
   img {
     height: auto;
-    width: 50%;
+    width: 100px;
     box-sizing: border-box;
     object-fit: contain;
     border-radius: 5px;
@@ -80,7 +80,7 @@ export const ImageArea = styled.div`
     grid-area: image;
     img {
       height: auto;
-      width: 100%;
+      width: 50%;
       box-sizing: border-box;
       object-fit: contain;
       border-radius: 5px;
@@ -93,6 +93,7 @@ export const DataArea = styled.div`
   // width: 50%;
   border: none;
   box-sizing: border-box;
+  word-wrap: break-word;
   @media only screen and (min-width: 768px) {
     width: 100%;
     grid-area: data;

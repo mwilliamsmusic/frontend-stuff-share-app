@@ -9,7 +9,9 @@ import UserMe from "./Components/Pages/User/UserMe";
 import CollectMain from "./Components/Pages/Main/CollectMain";
 import ItemsUserCollect from "./Components/Pages/User/UserCollectTemplates/ItemsUserCollect";
 import {
+  collection,
   collectUser,
+  item,
   itemsUserCollectId,
   itemUserId,
   mainCollect,
@@ -26,7 +28,9 @@ import {
   Spacer,
 } from "./CSS/GlobalCSS/globalCSS";
 import NavbarMobile from "./Components/Mobile/NavbarMobile";
-import Collect from "./Components/Pages/CollectTemplates/Collect";
+import Collects from "./Components/Pages/CollectTemplates/Collects";
+import ItemsCollect from "./Components/Pages/CollectTemplates/ItemsCollect";
+import Item from "./Components/Pages/CollectTemplates/Item";
 
 function App() {
   return (
@@ -46,7 +50,11 @@ function App() {
         <Route path={signIn} component={SignIn} />
         <Route path={signUp} component={SignUp} />
 
-        <Route path={usernameCollects} component={Collect} />
+        <Route path={usernameCollects} component={Collects} />
+
+        <Route path={collection} component={ItemsCollect} />
+
+        <Route path={item} component={Item} />
 
         <Route path={mainCollect} component={CollectMain} />
 
@@ -57,7 +65,7 @@ function App() {
 
         <Route path="/*" component={Main} />
       </Switch>
-      <Spacer height="500px" />
+      <Spacer height="400px" />
     </GradientBackground>
   );
 }

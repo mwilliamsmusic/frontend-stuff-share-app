@@ -1,10 +1,6 @@
 import axios from "axios";
 import React, {Fragment, useEffect} from "react";
 import {useParams} from "react-router-dom";
-import {
-  CenterContent,
-  PageContainer,
-} from "../../../../CSS/GlobalCSS/globalCSS";
 import {IUsername} from "../../../../Utils/basicInterfaces";
 import {
   IAllCollects,
@@ -13,13 +9,13 @@ import {
 import {useAppDispatch} from "../../../../Utils/Redux/ReduxHook";
 import {allCollectsUsernameURL} from "../../../../Utils/URL/apiURL";
 import {postCollect} from "../Utils/axiosCollectConfig";
-import AllCollectsView from "./AllCollectsView";
+import CollectsView from "./CollectsView";
 
 interface RouteParams {
   username: string;
 }
 
-function Collect() {
+function Collects() {
   const {username} = useParams<RouteParams>();
   const dispatch = useAppDispatch();
 
@@ -42,9 +38,9 @@ function Collect() {
 
   return (
     <Fragment>
-      <AllCollectsView username={username} />
+      <CollectsView username={username} />
     </Fragment>
   );
 }
 
-export default Collect;
+export default Collects;

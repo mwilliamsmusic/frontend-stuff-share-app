@@ -6,6 +6,7 @@ import {
   CenterContent,
   PageContainer,
   Spacer,
+  TitleStyle,
 } from "../../../../../CSS/GlobalCSS/globalCSS";
 import {BLUE} from "../../../../../CSS/GlobalCSS/typesGlobalCSS";
 import {GridStandardList} from "../../../../../CSS/listsCSS";
@@ -19,7 +20,9 @@ function AllCollectsView(props: Props) {
   return (
     <CenterContent>
       <PageContainer>
-        <h2>{props.username}'s Collections </h2>
+        <TitleStyle>
+          <h2>{props.username}'s Collections </h2>
+        </TitleStyle>
         <SocialBtn backgroundColor={BLUE}>
           Follow <FontAwesomeIcon icon={faUserPlus} />
         </SocialBtn>

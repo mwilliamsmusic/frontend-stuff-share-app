@@ -5,32 +5,31 @@ import {
   Spacer,
 } from "../../../../../CSS/GlobalCSS/globalCSS";
 import {GRADIENT} from "../../../../../CSS/GlobalCSS/typesGlobalCSS";
-
 import {useAppSelector} from "../../../../../Utils/Redux/ReduxHook";
-import ItemsView from "./ItemsView";
 
-function ItemsCollectView() {
-  const collect = useAppSelector((state) => state.collect);
+function ItemView() {
+  const item = useAppSelector((state) => state.item);
   return (
     <Fragment>
-      <h2>{collect.title} Collection</h2>
+      <h2>{item.title}</h2>
       <Spacer height="15px" />
       <LineBreak width="100%" bgColor={GRADIENT} />
       <Spacer height="30px" />
 
       <ImagePathStyle>
         <img
-          src={`${process.env.REACT_APP_IMAGE_BACKEND}${collect.imagePath}`}
+          src={`${process.env.REACT_APP_IMAGE_BACKEND}${item.imagePath}`}
         ></img>
       </ImagePathStyle>
       <Spacer height="30px" />
       <LineBreak width="100%" bgColor={GRADIENT} />
       <Spacer height="30px" />
-      <ItemsView />
+
+      {item.itemForm}
       <LineBreak width="100%" bgColor={GRADIENT} />
       <Spacer height="30px" />
     </Fragment>
   );
 }
 
-export default ItemsCollectView;
+export default ItemView;

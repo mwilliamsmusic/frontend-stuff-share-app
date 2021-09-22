@@ -2,7 +2,6 @@ import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React, {Fragment} from "react";
 import {StdBtn} from "../../../../../../CSS/buttonsCSS";
-import {UnorderListStyle} from "../../../../../../CSS/GlobalCSS/globalCSS";
 import {RED} from "../../../../../../CSS/GlobalCSS/typesGlobalCSS";
 import {
   DataArea,
@@ -13,7 +12,6 @@ import {
 } from "../../../../../../CSS/listsCSS";
 import {useAppSelector} from "../../../../../../Utils/Redux/ReduxHook";
 import {itemUser} from "../../../../../../Utils/URL/frontURL";
-import {CollectContainer, LinkStyle, ListStyle} from "../../../Utils/userCSS";
 
 interface Props {
   deleteCollection: () => void;

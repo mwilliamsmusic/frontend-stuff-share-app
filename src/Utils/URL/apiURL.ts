@@ -50,7 +50,10 @@ export const removeItemTagURL = `${process.env.REACT_APP_USER_BACKEND}/tag/item/
 // Query Server
 // Collect
 export const allCollectsUsernameURL = `${process.env.REACT_APP_QUERY_BACKEND}/query/collect/name`;
-
+export const collectDataURL = `${process.env.REACT_APP_QUERY_BACKEND}/query/collect/data`;
+export const allItemsURL = `${process.env.REACT_APP_QUERY_BACKEND}/query/item/all`;
 // Cool
 export const createCoolURL = `${process.env.REACT_APP_QUERY_BACKEND}/user/cool/collect/create`;
 export const getCoolURL = `${process.env.REACT_APP_QUERY_BACKEND}/query/cool/collect/id`;
+// Item
+export const itemDataURL = `${process.env.REACT_APP_QUERY_BACKEND}/query/item/data`;

@@ -1,12 +1,10 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IForm} from "../../../basicInterfaces";
 import {RootState} from "../../store";
 
 export interface IAllCollects {
   id: number | null;
   title: string | null;
   imagePath: string | null;
-  collectForm: Array<IForm> | null;
   status: string | null;
   coolValue: number;
 }
