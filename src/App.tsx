@@ -28,9 +28,10 @@ import {
   Spacer,
 } from "./CSS/GlobalCSS/globalCSS";
 import NavbarMobile from "./Components/Mobile/NavbarMobile";
-import Collects from "./Components/Pages/CollectTemplates/Collects";
-import ItemsCollect from "./Components/Pages/CollectTemplates/ItemsCollect";
-import Item from "./Components/Pages/CollectTemplates/Item";
+
+import Collections from "./Components/Pages/CollectionTemplates/Collections";
+import ItemsCollect from "./Components/Pages/CollectionTemplates/ItemsCollect";
+import Item from "./Components/Pages/CollectionTemplates/Item";
 
 function App() {
   return (
@@ -50,7 +51,7 @@ function App() {
         <Route path={signIn} component={SignIn} />
         <Route path={signUp} component={SignUp} />
 
-        <Route path={usernameCollects} component={Collects} />
+        <Route path={usernameCollects} component={Collections} />
 
         <Route path={collection} component={ItemsCollect} />
 

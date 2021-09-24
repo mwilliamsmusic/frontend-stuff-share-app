@@ -13,6 +13,7 @@ import {
   LineBreak,
   PageContainer,
   Spacer,
+  TitleStyle,
 } from "../../../../../CSS/GlobalCSS/globalCSS";
 import {BLUE, GRADIENT} from "../../../../../CSS/GlobalCSS/typesGlobalCSS";
 import ItemTags from "./ItemEdit/ItemTags";
@@ -89,6 +90,7 @@ function ItemUser() {
   return (
     <CenterContent>
       <PageContainer>
+        <TitleStyle>{item.title}</TitleStyle>
         <Spacer height="25px" />
         <LineBreak bgColor={BLUE} width={"90%"} bgImage={GRADIENT} />
         <Spacer height="25px" />

@@ -1,25 +1,28 @@
-import React from "react";
-import {itemsUserCollect} from "../../../../../../Utils/URL/frontURL";
+import React, {Fragment} from "react";
 import {
   CenterContent,
   PageContainer,
-} from "../../../../../../CSS/GlobalCSS/globalCSS";
-import {useAppSelector} from "../../../../../../Utils/Redux/ReduxHook";
+  Spacer,
+} from "../../../../../../../CSS/GlobalCSS/globalCSS";
 import {
   DataArea,
   GridStandardList,
   ImageArea,
   StandardList,
   StandardListGridBtn,
-} from "../../../../../../CSS/listsCSS";
+} from "../../../../../../../CSS/listsCSS";
+import {IAllCollectsUser} from "../../../../../../../Utils/Redux/Modules/user/allCollectsUserSlice";
+import {useAppSelector} from "../../../../../../../Utils/Redux/ReduxHook";
+import {itemsUserCollect} from "../../../../../../../Utils/URL/frontURL";
 
+interface Props {
+  allCollectsUser: Array<IAllCollectsUser>;
+}
 // Displays all of the user's collections
-function AllCollectsView() {
-  const collectAll = useAppSelector((state) => state.allCollectsUser);
-
-  const collectItems =
-    collectAll &&
-    Object.values(collectAll).map((collect: any) => (
+function AllCollectsView(props: Props) {
+  const collectionsUser =
+    props.allCollectsUser &&
+    Object.values(props.allCollectsUser).map((collect: any) => (
       <li key={collect.id}>
         <StandardListGridBtn to={`${itemsUserCollect}${collect.id}`}>
           <ImageArea>
@@ -31,19 +34,18 @@ function AllCollectsView() {
             <b> {collect.title}</b>
           </DataArea>
         </StandardListGridBtn>
+        <Spacer height="10px" />
       </li>
     ));
-  /*
 
-*/
   return (
     <CenterContent>
       <PageContainer>
         <h2>My Collections</h2>
         <StandardList>
-          <ul>
-            <GridStandardList>{collectItems}</GridStandardList>
-          </ul>
+          <GridStandardList>
+            <ul>{collectionsUser} </ul>
+          </GridStandardList>
         </StandardList>
       </PageContainer>
     </CenterContent>

@@ -2,6 +2,7 @@ import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React, {Fragment} from "react";
 import {StdBtn} from "../../../../../../CSS/buttonsCSS";
+import {Spacer} from "../../../../../../CSS/GlobalCSS/globalCSS";
 import {RED} from "../../../../../../CSS/GlobalCSS/typesGlobalCSS";
 import {
   DataArea,
@@ -30,8 +31,11 @@ function AllItemsView(props: Props) {
               src={`${process.env.REACT_APP_IMAGE_BACKEND}${item.imagePath}`}
             />
           </ImageArea>
-          <DataArea>{item.title}</DataArea>
+          <DataArea>
+            <b>{item.title}</b>
+          </DataArea>
         </StandardListGridBtn>
+        <Spacer height="5px" />
       </li>
     ));
 
@@ -42,9 +46,10 @@ function AllItemsView(props: Props) {
         <FontAwesomeIcon icon={faTrashAlt} size="1x" />`{` Delete Collection`}
       </StdBtn>
       <StandardList>
-        <ul>
-          <GridStandardList>{itemsList}</GridStandardList>
-        </ul>
+        <GridStandardList>
+          <Spacer height="5px" />
+          <ul>{itemsList} </ul>
+        </GridStandardList>
       </StandardList>
     </Fragment>
   );

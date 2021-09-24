@@ -1,21 +1,21 @@
 import React from "react";
-
-import {CenterContent, Spacer} from "../../../../../../CSS/GlobalCSS/globalCSS";
+import {CenterContent, Spacer} from "../../../../../CSS/GlobalCSS/globalCSS";
 import {
   DataArea,
   GridStandardList,
   ImageArea,
   StandardList,
   StandardListGridBtn,
-} from "../../../../../../CSS/listsCSS";
-import {IAllCollects} from "../../../../../../Utils/Redux/Modules/collect/allCollectsSlice";
-import {useAppSelector} from "../../../../../../Utils/Redux/ReduxHook";
+} from "../../../../../CSS/listsCSS";
+import {IAllCollects} from "../../../../../Utils/Redux/Modules/collect/allCollectsSlice";
 
-function CollectionsView() {
-  const allCollects = useAppSelector((state) => state.allCollects);
+interface Props {
+  allCollections: Array<IAllCollects>;
+}
+function CollectionsView(props: Props) {
   const collections =
-    allCollects &&
-    Object.values(allCollects).map((collect: IAllCollects) => (
+    props.allCollections &&
+    Object.values(props.allCollections).map((collect: IAllCollects) => (
       <li key={collect.id}>
         <StandardListGridBtn to={`/collection/${collect.id}`}>
           <ImageArea>
@@ -29,18 +29,19 @@ function CollectionsView() {
             <Spacer height="5px" />
 
             {`Cool (${collect.coolValue})`}
-
-            <Spacer height="10px" />
           </DataArea>
         </StandardListGridBtn>
+        <Spacer height="10px" />
       </li>
     ));
   return (
-    <StandardList>
-      <ul>
-        <GridStandardList>{collections}</GridStandardList>
-      </ul>
-    </StandardList>
+    <CenterContent>
+      <StandardList>
+        <ul>
+          <GridStandardList>{collections}</GridStandardList>
+        </ul>
+      </StandardList>
+    </CenterContent>
   );
 }
 export default CollectionsView;

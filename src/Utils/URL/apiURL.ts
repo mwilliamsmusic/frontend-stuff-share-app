@@ -23,17 +23,17 @@ export const deleteCollectFormURL = `${process.env.REACT_APP_USER_BACKEND}/user/
 
 // USER ITEM
 // Patch Update Item
-export const patchUserItemURL = `${process.env.REACT_APP_USER_BACKEND}/user/item/collect/ui`;
+export const patchUserItemURL = `${process.env.REACT_APP_USER_BACKEND}/user/item/ui`;
 // User GET one Item
-export const getUserItemURL = `${process.env.REACT_APP_USER_BACKEND}/user/item/collect/one`;
+export const getUserItemURL = `${process.env.REACT_APP_USER_BACKEND}/user/item/one`;
 //User GET all Items
-export const getUserCollectItemsURL = `${process.env.REACT_APP_USER_BACKEND}/user/item/collect/all`;
+export const getUserCollectItemsURL = `${process.env.REACT_APP_USER_BACKEND}/user/item/all`;
 // POST User Item
-export const postUserItemURL = `${process.env.REACT_APP_USER_BACKEND}/user/item/collect`;
+export const postUserItemURL = `${process.env.REACT_APP_USER_BACKEND}/user/item`;
 // Update item form
-export const updateItemFormURL = `${process.env.REACT_APP_USER_BACKEND}/user/item/collect/uif`;
+export const updateItemFormURL = `${process.env.REACT_APP_USER_BACKEND}/user/item/uif`;
 // User DELETE Item
-export const deleteUserItemURL = `${process.env.REACT_APP_USER_BACKEND}/user/item/collect/di`;
+export const deleteUserItemURL = `${process.env.REACT_APP_USER_BACKEND}/user/item/di`;
 
 // Image Update
 export const imagePostURL = `${process.env.REACT_APP_IMAGE_BACKEND}/image`;

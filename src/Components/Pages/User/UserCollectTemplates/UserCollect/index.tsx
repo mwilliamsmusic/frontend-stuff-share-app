@@ -8,7 +8,7 @@ import {
 import {ICreateCollect} from "../../Utils/Interfaces/ICollectUser";
 import {getAllUser, postUser} from "../../Utils/axiosUserConfig";
 import CreateCollectView from "./CreateCollectView";
-import AllCollectsView from "./AllCollectsView";
+
 import {Spacer} from "../../../../../CSS/GlobalCSS/globalCSS";
 import {disableButton} from "../../../../../Utils/validation";
 import {
@@ -20,6 +20,7 @@ import {
   updateAllCollectsUser,
 } from "../../../../../Utils/Redux/Modules/user/allCollectsUserSlice";
 import {IId} from "../../../../../Utils/basicInterfaces";
+import AllCollects from "./AllCollects";
 
 function UserCollect() {
   const [collectTitle, setCollectTitle] = useState<string>("");
@@ -71,7 +72,7 @@ function UserCollect() {
         postCollect={postCollect}
       />
       <Spacer height="50px" />
-      <AllCollectsView />
+      <AllCollects />
     </Fragment>
   );
 }

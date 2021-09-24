@@ -7,6 +7,11 @@ import React, {
 } from "react";
 import {StdBtn} from "../../../../../../../../../CSS/buttonsCSS";
 import {
+  FLFieldArea,
+  FLValueArea,
+  GridFormList,
+} from "../../../../../../../../../CSS/formListCSS";
+import {
   Spacer,
   UnorderListStyle,
 } from "../../../../../../../../../CSS/GlobalCSS/globalCSS";
@@ -15,13 +20,8 @@ import {
   GREEN,
   RED,
 } from "../../../../../../../../../CSS/GlobalCSS/typesGlobalCSS";
+import {StandardList} from "../../../../../../../../../CSS/listsCSS";
 import {useAppSelector} from "../../../../../../../../../Utils/Redux/ReduxHook";
-import {
-  EditFormContainer,
-  EditFormGrid,
-  FieldEditFormArea,
-  ViewEditFormArea,
-} from "../../../../../../Utils/userCSS";
 
 interface Props {
   deleteFieldState: (event: SyntheticEvent, field: string) => void;
@@ -34,10 +34,10 @@ function CollectFormBtnView(props: Props) {
   const formList =
     collectForm &&
     Object.values(collectForm).map((form: any) => (
-      <Fragment>
-        <EditFormGrid>
-          <FieldEditFormArea>{form.field}</FieldEditFormArea>
-          <ViewEditFormArea>
+      <li key={form.field}>
+        <GridFormList>
+          <FLFieldArea>{form.field}</FLFieldArea>
+          <FLValueArea>
             <StdBtn
               backgroundColor={RED}
               onClick={(event) => {
@@ -46,16 +46,14 @@ function CollectFormBtnView(props: Props) {
             >
               Delete Field
             </StdBtn>
-          </ViewEditFormArea>
-        </EditFormGrid>
+          </FLValueArea>
+        </GridFormList>
         <Spacer height="5px" />
-      </Fragment>
+      </li>
     ));
   return (
-    <Fragment>
-      <EditFormContainer>
-        <UnorderListStyle> {formList} </UnorderListStyle>
-      </EditFormContainer>
+    <StandardList>
+      <ul>{formList}</ul>
       <StdBtn
         backgroundColor={GREEN}
         onClick={(event) => props.saveForm(event)}
@@ -65,7 +63,7 @@ function CollectFormBtnView(props: Props) {
       <StdBtn backgroundColor={BLUE} onClick={() => props.setIsEdit(false)}>
         Close
       </StdBtn>
-    </Fragment>
+    </StandardList>
   );
 }
 

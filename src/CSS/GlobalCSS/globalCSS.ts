@@ -32,6 +32,7 @@ export const CenterContent = styled.div`
 // Main page content container
 export const PageContainer = styled.div`
   background-color: ${WHITE};
+  background-color: white;
   border-radius: ${BORDER_RADIUS};
   display: flex;
   justify-content: center;
@@ -54,7 +55,7 @@ export const PageContainer = styled.div`
   }
 
   @media only screen and (min-width: 768px) {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: ${WHITE};
   }
 `;
 
@@ -120,6 +121,8 @@ export const LineBreak = styled.div<ILineBreak>`
   height: 1px;
   margin: 0px;
   border: 0px;
+  padding: 0px;
+  box-sizing: border-box;
   background-image: linear-gradient(to right, ${(p) => p.bgImage});
 `;
 
